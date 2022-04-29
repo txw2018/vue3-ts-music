@@ -1,5 +1,7 @@
 {
-  "cSpell.words": ["Vitesse"],
+  "cSpell.words": [
+    "Vitesse"
+  ],
   "prettier.enable": false,
   "typescript.tsdk": "node_modules/typescript/lib",
   "editor.codeActionsOnSave": {
@@ -8,4 +10,5 @@
   "files.associations": {
     "*.css": "postcss",
   },
+  "unocss.root": "packages/client"
 }

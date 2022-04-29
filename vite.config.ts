@@ -1,5 +1,4 @@
 /// <reference types="vitest" />
-
 import path from 'path'
 import { defineConfig } from 'vite'
 import Vue from '@vitejs/plugin-vue'
@@ -20,7 +19,14 @@ export default defineConfig({
     }),
 
     // https://github.com/hannoeru/vite-plugin-pages
-    Pages(),
+    Pages({
+      extendRoute(route) {
+        console.log(route.path)
+
+        if (route.path === '/')
+          return { ...route, redirect: '/recommend' }
+      },
+    }),
 
     // https://github.com/antfu/unplugin-auto-import
     AutoImport({
