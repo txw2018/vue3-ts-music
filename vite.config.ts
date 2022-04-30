@@ -21,8 +21,6 @@ export default defineConfig({
     // https://github.com/hannoeru/vite-plugin-pages
     Pages({
       extendRoute(route) {
-        console.log(route.path, 123)
-
         if (route.path === '/')
           return { ...route, redirect: '/recommend' }
       },
