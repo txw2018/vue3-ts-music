@@ -8,6 +8,8 @@ const selectedAlbum = ref<Album|null>(null)
 const selectItem = (item: Album) => {
   selectedAlbum.value = item
 }
+const loadingText = ref('正在加载中...')
+const loading = computed(() => !sliders.value?.length && !albums.value?.length)
 
 onMounted(async() => {
   const result = await getRecommend() as Recommend
@@ -17,7 +19,7 @@ onMounted(async() => {
 
 </script>
 <template>
-  <div fixed w-full top-88px bottom-0 overflow-scroll>
+  <div v-loading:[loadingText]="loading" fixed w-full top-88px bottom-0 overflow-scroll>
     <Scroll h-full overflow-hidden>
       <div>
         <div relative w-full h-0 overflow-hidden class="pt-2/5">
@@ -29,7 +31,7 @@ onMounted(async() => {
           </div>
         </div>
         <div>
-          <h1 h-65px lh-65px text-center text-dark text-theme>
+          <h1 v-show="!loading" h-65px lh-65px text-center text-dark text-theme>
             热门歌单推荐
           </h1>
           <ul>
@@ -39,7 +41,7 @@ onMounted(async() => {
               items-center pt-0 pb-20px px-20px @click="selectItem(item)"
             >
               <div class="flex-[0_0_60px]" w-60px pr-20px>
-                <img loading="lazy" width="60" height="60" :src="item.pic" alt="">
+                <img v-lazy="item.pic" width="60" height="60" alt="">
               </div>
               <div text-left flex flex-col justify-center flex-1 lh-20px overflow-hidden text-sm>
                 <h2 mb-10px text-dark dark:text-light>

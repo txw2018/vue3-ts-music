@@ -19,7 +19,8 @@
     "axios-retry": "^3.2.4",
     "lyric-parser": "^1.0.1",
     "vue": "^3.2.31",
-    "vue-router": "^4.0.14"
+    "vue-router": "^4.0.14",
+    "vue3-lazy": "^1.0.0-alpha.1"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.20.2",

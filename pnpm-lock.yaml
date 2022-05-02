@@ -31,6 +31,7 @@ specifiers:
   vue: ^3.2.31
   vue-router: ^4.0.14
   vue-tsc: ^0.34.2
+  vue3-lazy: ^1.0.0-alpha.1
   xsrf: ^1.0.0
 
 dependencies:
@@ -43,6 +44,7 @@ dependencies:
   lyric-parser: 1.0.1
   vue: 3.2.31
   vue-router: 4.0.14_vue@3.2.31
+  vue3-lazy: 1.0.0-alpha.1_vue@3.2.31
 
 devDependencies:
   '@antfu/eslint-config': 0.20.2_eslint@8.13.0+typescript@4.6.3
@@ -4507,6 +4509,15 @@ packages:
       '@vue/runtime-dom': 3.2.31
       '@vue/server-renderer': 3.2.31_vue@3.2.31
       '@vue/shared': 3.2.31
+    dev: false
+
+  /vue3-lazy/1.0.0-alpha.1_vue@3.2.31:
+    resolution: {integrity: sha512-dpjpKK4DC5q+wZVtS/VY3X6pYBJHxRmYanr20s39RB6o6fvbneQ/DNuz37bipYfEdrEvbSZ95Y2SCexuznQNrQ==}
+    engines: {node: '>=6.0.0'}
+    peerDependencies:
+      vue: ^3.0.0-alpha.9
+    dependencies:
+      vue: 3.2.31
     dev: false
 
   /w3c-hr-time/1.0.2:

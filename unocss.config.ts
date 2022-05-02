@@ -44,7 +44,7 @@ export default defineConfig({
       darkBase: '#000',
       darkD: 'rgba(0, 0, 0, 0.3)',
       darkL: 'rgba(0, 0, 0, 0.5)',
-      darkl: 'rgba(0, 0, 0, 0.8)',
+      darkLl: 'rgba(0, 0, 0, 0.8)',
     },
   },
   // transformers: [

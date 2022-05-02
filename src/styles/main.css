@@ -9,3 +9,6 @@ body,
 html.dark {
   background: #121212;
 }
+.g-relative {
+  position: relative;
+}

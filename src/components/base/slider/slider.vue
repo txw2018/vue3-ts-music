@@ -41,10 +41,12 @@ const { currentPageIndex } = useSlider(rootRef)
       <span
         v-for="(item, index) in sliders"
         :key="item.id"
-        inline-block my-0 mx-4px w-8px h-8px translate-z-1px bg-l
-        class="rounded-1/2"
-        :class="{'w-20px rounded-5px bg-ll': currentPageIndex === index}"
+        inline-block my-0 mx-4px h-8px translate-z-1px
+        :class="[ currentPageIndex === index ? 'rounded-5px bg-light-ll w-20px' : 'rounded-1/2 bg-light-l w-8px']"
       />
     </div>
   </div>
 </template>
+<style scoped>
+
+</style>
