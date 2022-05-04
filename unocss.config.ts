@@ -31,7 +31,7 @@ export default defineConfig({
   theme: {
     colors: {
       background: '#222',
-      backgroundD: 'rgba(0, 0, 0, 0.3)',
+      darkBackgroundD: 'rgba(0, 0, 0, 0.3)',
       darkHighlightBackground: '#333',
       lightHighlightBackground: '#f0f0f5',
       dialogBackground: '#666',

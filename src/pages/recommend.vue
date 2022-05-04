@@ -8,7 +8,6 @@ const selectedAlbum = ref<Album|null>(null)
 const selectItem = (item: Album) => {
   selectedAlbum.value = item
 }
-const loadingText = ref('正在加载中...')
 const loading = computed(() => !sliders.value?.length && !albums.value?.length)
 
 onMounted(async() => {
@@ -19,7 +18,7 @@ onMounted(async() => {
 
 </script>
 <template>
-  <div v-loading:[loadingText]="loading" fixed w-full top-88px bottom-0 overflow-scroll>
+  <div v-loading="loading" fixed w-full top-88px bottom-0 overflow-scroll>
     <Scroll h-full overflow-hidden>
       <div>
         <div relative w-full h-0 overflow-hidden class="pt-2/5">

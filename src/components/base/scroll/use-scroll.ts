@@ -3,7 +3,7 @@ import type { BScrollConstructor } from '@better-scroll/core/dist/types/BScroll'
 import ObserveDOM from '@better-scroll/observe-dom'
 import { onActivated, onDeactivated, onMounted, onUnmounted, ref } from 'vue'
 import type{ Ref, SetupContext } from 'vue'
-import type { ScrollEmits, ScrollProps } from './scroll'
+import type { Pos, ScrollEmits, ScrollProps } from './scroll'
 BScroll.use(ObserveDOM)
 
 type Emit = SetupContext<ScrollEmits>['emit']
@@ -17,7 +17,7 @@ export default function useScroll(wrapperRef: Ref<HTMLDivElement | null>, option
     })
 
     if (options.probeType > 0) {
-      scrollVal.on('scroll', (pos: number) => {
+      scrollVal.on('scroll', (pos: Pos) => {
         emit('scroll', pos)
       })
     }

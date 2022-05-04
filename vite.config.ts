@@ -20,10 +20,6 @@ export default defineConfig({
 
     // https://github.com/hannoeru/vite-plugin-pages
     Pages({
-      extendRoute(route) {
-        if (route.path === '/')
-          return { ...route, redirect: '/recommend' }
-      },
     }),
 
     // https://github.com/antfu/unplugin-auto-import

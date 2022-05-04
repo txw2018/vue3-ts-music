@@ -4,7 +4,11 @@ import useScroll from './use-scroll'
 const props = defineProps(scrollProps)
 const emit = defineEmits(scrollEmits)
 const rootRef = ref<HTMLDivElement | null>(null)
-useScroll(rootRef, props, emit)
+const scroll = useScroll(rootRef, props, emit)
+
+defineExpose({
+  scroll,
+})
 </script>
 <template>
   <div ref="rootRef">

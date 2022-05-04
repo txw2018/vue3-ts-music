@@ -1,5 +1,5 @@
 import type{ ExtractPropTypes } from 'vue'
-import { isNumber } from '@vueuse/core'
+import { isObject } from '@vueuse/core'
 export const scrollProps = {
   click: {
     type: Boolean,
@@ -13,7 +13,12 @@ export const scrollProps = {
 export type ScrollProps = ExtractPropTypes<typeof scrollProps>
 
 export const scrollEmits = {
-  scroll: (pos: number) => isNumber(pos),
+  scroll: (pos: { x: number; y: number }) => isObject(pos),
 }
 
 export type ScrollEmits = typeof scrollEmits
+
+export interface Pos {
+  x: number
+  y: number
+}
