@@ -12,6 +12,7 @@ export default function useShortcut(props: IndexListProps, groupRef: Ref<HTMLULi
   })
 
   const scrollTo = (index: number) => {
+    // touch target 可能不是li，就没有index ，所以index可能NAN
     if (isNaN(index))
       return
     index = Math.max(0, Math.min(shortcutList.value.length - 1, index))
