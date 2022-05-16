@@ -6,12 +6,15 @@ import Scroll from '~/components/base/scroll/scroll.vue'
 import type { Singer } from '~/service/singer.types'
 
 const props = defineProps(indexListProps)
+const emit = defineEmits<{
+  (e: 'select', item: Singer): void
+}>()
 
 const { groupRef, onScroll, fixedTitle, fixedStyle, currentIndex } = useFixed(props)
 const { shortcutList, onShortcutTouchStart, onShortcutTouchMove, scrollRef } = useShortcut(props, groupRef)
 
 const onItemClick = (item: Singer) => {
-
+  emit('select', item)
 }
 </script>
 <template>
