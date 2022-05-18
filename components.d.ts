@@ -7,10 +7,12 @@ declare module '@vue/runtime-core' {
     Header: typeof import('./src/components/header/header.vue')['default']
     IndexList: typeof import('./src/components/base/index-list/index-list.vue')['default']
     Loading: typeof import('./src/components/base/loading/loading.vue')['default']
+    MusicList: typeof import('./src/components/music-list/music-list.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     Scroll: typeof import('./src/components/base/scroll/scroll.vue')['default']
     Slider: typeof import('./src/components/base/slider/slider.vue')['default']
+    SongList: typeof import('./src/components/base/song-list/song-list.vue')['default']
     Tab: typeof import('./src/components/tab/tab.vue')['default']
   }
 }

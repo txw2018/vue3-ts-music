@@ -1,5 +1,3 @@
-import exp from 'constants'
-
 export interface Singer {
   id: number
   mid: string
@@ -17,4 +15,17 @@ export interface SingerResult {
 
 export interface SingerDetailParams {
   mid: string
+}
+export interface Song {
+  id: number
+  mid: string
+  name: string
+  singer: string
+  url: string
+  duration: number
+  pic: string
+  album: string
+}
+export interface SongResult {
+  songs: Song[]
 }
