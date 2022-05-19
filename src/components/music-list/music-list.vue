@@ -42,7 +42,7 @@ const bgImageStyle = computed(() => {
     height = `${RESERVED_HEIGHT}px`
     translateZ = 1
   }
-
+  // 下拉滚动值少于0，放大图片
   let scale = 1
   if (scrollYVal < 0)
     scale = 1 + Math.abs(scrollYVal / imageHeightVal)
@@ -101,7 +101,7 @@ onMounted(() => {
 <template>
   <div relative h-full>
     <div
-      absolute top-6px left-6px z-20 translate-z-2px
+      absolute top-10px left-6px z-20 translate-z-2px
       @click="goBack"
     >
       <i block p-10px text-theme i-carbon:arrow-left />

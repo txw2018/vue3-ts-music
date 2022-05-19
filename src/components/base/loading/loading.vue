@@ -1,3 +1,8 @@
+<script lang="ts">
+export default {
+  name: 'Loading',
+}
+</script>
 <script setup lang='ts'>
 
 const title = ref('')
