@@ -5,7 +5,7 @@ export default {
 </script>
 <script setup lang='ts'>
 
-const title = ref('')
+const title = ref('正在加载中...')
 const setTitle = (val: string) => {
   title.value = val
 }

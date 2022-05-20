@@ -1,7 +1,8 @@
 import { createApp } from 'vue'
 
 import type {
-  DefineComponent,
+
+  Component,
   DirectiveBinding,
   ObjectDirective,
 } from 'vue'
@@ -9,13 +10,16 @@ import { addClass, removeClass } from '~/asstes/js/dom'
 const relativeCls = 'g-relative'
 
 type El = HTMLElement & Record<string, any>
+interface CompType {
+  setTitle?: (title: string) => void
+}
+export default function createLoadingLikeDirective<T extends CompType>(Comp: Component): ObjectDirective {
+  const name = Comp.name!
 
-export default function createLoadingLikeDirective<T extends CompType>(Comp: DefineComponent): ObjectDirective {
-  const name = Comp.name
   return {
     mounted(el: El, binding: DirectiveBinding) {
       const app = createApp(Comp)
-      const instance = app.mount(document.createElement('div')) as any as T
+      const instance = app.mount(document.createElement('div')) as unknown as T
 
       if (!el[name])
         el[name] = {}

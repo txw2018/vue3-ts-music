@@ -5,7 +5,7 @@ axiosRetry(axios, { retries: 5 })
 
 const ERR_OK = 0
 
-const baseURL = import.meta.env.PROD ? 'http://ustbhuangyi.com/music-next/' : 'http://localhost:3000/'
+const baseURL = import.meta.env.PROD ? 'http://ustbhuangyi.com/music-next/' : 'http://192.168.2.9:3000/'
 
 axios.defaults.baseURL = baseURL
 interface ResultData<T> {

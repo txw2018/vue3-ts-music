@@ -10,7 +10,7 @@ defineProps({
   rank: Boolean,
 })
 const emit = defineEmits<{
-  (e: 'select', val: {}): void
+  (e: 'select', val: { song: Song; index: number }): void
 }>()
 
 const selectItem = (song: Song, index: number) => {

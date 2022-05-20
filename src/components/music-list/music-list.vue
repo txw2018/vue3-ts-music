@@ -4,6 +4,8 @@ import Scroll from '../base/scroll/scroll.vue'
 import SongList from '../base/song-list/song-list.vue'
 import type { Pos } from '../base/scroll/scroll'
 import type { Song } from '~/service/singer.types'
+import { useMainStore } from '~/stores/main'
+
 const RESERVED_HEIGHT = 40
 const props = defineProps({
   songs: {
@@ -21,6 +23,7 @@ const props = defineProps({
   },
   rank: Boolean,
 })
+const mainStore = useMainStore()
 const router = useRouter()
 const bgImage = ref<HTMLDivElement | null>(null)
 const scrollY = ref(0)
@@ -82,15 +85,20 @@ const scrollStyle = computed(() => {
 
   }
 })
+const noResult = computed(() => !props.loading && !props.songs.length)
+
+const onScroll = (pos: Pos) => {
+  scrollY.value = -pos.y
+}
 const goBack = () => {
   router.back()
 }
 
 const random = () => {
-
+  mainStore.randomPlay(props.songs)
 }
-const onScroll = (pos: Pos) => {
-  scrollY.value = -pos.y
+const selectItem = ({ song, index }: { song: Song; index: number }) => {
+  mainStore.selectPlay({ list: props.songs, index })
 }
 
 onMounted(() => {
@@ -107,7 +115,7 @@ onMounted(() => {
       <i block p-10px text-theme i-carbon:arrow-left />
     </div>
     <h1
-      absolute top-0 z-20 translate-z-2px text-center lh-40px text-xl text-base
+      absolute top-0 z-20 translate-z-2px text-center lh-40px text-xl text-base text-light
       class="left-1/10 w-4/5"
     >
       {{ title }}
@@ -139,6 +147,7 @@ onMounted(() => {
     </div>
     <scroll
       v-loading="loading"
+      v-no-result:[noResultText]="noResult"
       absolute bottom-0 w-full
       z-0
       :style="scrollStyle"
@@ -148,7 +157,7 @@ onMounted(() => {
       <div
         py-20px px-30px dark:bg-dark bg-light
       >
-        <song-list :songs="songs" />
+        <song-list :songs="songs" @select="selectItem" />
       </div>
     </scroll>
   </div>
