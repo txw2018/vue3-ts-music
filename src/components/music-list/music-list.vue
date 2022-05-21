@@ -115,7 +115,7 @@ onMounted(() => {
       <i block p-10px text-theme i-carbon:arrow-left />
     </div>
     <h1
-      absolute top-0 z-20 translate-z-2px text-center lh-40px text-xl text-base text-light
+      absolute top-0 z-20 translate-z-2px text-center lh-40px text-lg text-base text-light
       class="left-1/10 w-4/5"
     >
       {{ title }}

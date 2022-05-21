@@ -3,5 +3,6 @@
     <Header />
     <Tab />
     <router-view />
+    <player />
   </main>
 </template>

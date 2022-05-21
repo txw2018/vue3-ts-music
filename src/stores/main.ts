@@ -1,5 +1,6 @@
 import { acceptHMRUpdate, defineStore } from 'pinia'
-import { PLAY_MODE } from '~/asstes/js/constant'
+import { load } from '~/asstes/js/array-store'
+import { FAVORITE_KEY, PLAY_MODE } from '~/asstes/js/constant'
 import { shuffle } from '~/asstes/js/util'
 import type { Song } from '~/service/singer.types'
 
@@ -10,13 +11,12 @@ export const useMainStore = defineStore('main', () => {
   const playing = ref<boolean>(false) // 播放状态
   const playMode = ref<PLAY_MODE>(PLAY_MODE.sequence)// 播放状态
   const currentIndex = ref<number>(0) // 当前播放歌曲索引
-  const fullScreen = ref<boolean>(false)// 播放模式 打卡 or 收缩
-  const favoriteList = ref<Song[]>([]) // 收藏列表
+  const fullScreen = ref<boolean>(false)// 播放模式 全局 or 收缩
+  const favoriteList = ref<Song[]>(load(FAVORITE_KEY)) // 收藏列表
   const playHistory = ref<Song[]>([])// 播放历史列表
 
   // getters
-  const currentSong = () => playlist.value[currentIndex.value]
-
+  const currentSong = computed(() => playlist.value[currentIndex.value])
   // mutation
   const setPlayingState = (playingVal: boolean) => playing.value = playingVal
   const setSequenceList = (list: Song[]) => sequenceList.value = list
@@ -24,6 +24,7 @@ export const useMainStore = defineStore('main', () => {
   const setPlayMode = (mode: PLAY_MODE) => playMode.value = mode
   const setCurrentIndex = (index: number) => currentIndex.value = index
   const setFullScreen = (fullScreenVal: boolean) => fullScreen.value = fullScreenVal
+  const setFavoriteList = (list: Song[]) => { favoriteList.value = list }
 
   // action
   const selectPlay = ({ list, index }: { list: Song[]; index: number }) => {
@@ -44,6 +45,20 @@ export const useMainStore = defineStore('main', () => {
     setCurrentIndex(0)
   }
 
+  const changeMode = (mode: PLAY_MODE) => {
+    const currentId = currentSong.value.id
+    if (mode === PLAY_MODE.random)
+      setPlaylist(shuffle(sequenceList.value))
+    else
+      setPlaylist(sequenceList.value)
+
+    const index = playlist.value.findIndex((song) => {
+      return song.id === currentId
+    })
+    setCurrentIndex(index)
+    setPlayMode(mode)
+  }
+
   return {
     // state
     sequenceList,
@@ -56,9 +71,18 @@ export const useMainStore = defineStore('main', () => {
     playHistory,
     // getter
     currentSong,
+    // mutation
+    setPlayingState,
+    setSequenceList,
+    setPlaylist,
+    setPlayMode,
+    setCurrentIndex,
+    setFullScreen,
+    setFavoriteList,
     // action
     selectPlay,
     randomPlay,
+    changeMode,
 
   }
 })
