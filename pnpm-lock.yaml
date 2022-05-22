@@ -16,7 +16,6 @@ specifiers:
   cookie-parser: ^1.4.6
   eslint: ^8.13.0
   express: ^4.18.0
-  good-storage: ^1.1.1
   js-base64: ^3.7.2
   jsdom: ^19.0.0
   lyric-parser: ^1.0.1
@@ -44,7 +43,6 @@ dependencies:
   '@vueuse/core': 8.2.5_vue@3.2.31
   axios: 0.27.2
   axios-retry: 3.2.4
-  good-storage: 1.1.1
   lyric-parser: 1.0.1
   pinia: 2.0.14_typescript@4.6.3+vue@3.2.31
   vconsole: 3.14.6
@@ -2471,10 +2469,6 @@ packages:
       merge2: 1.4.1
       slash: 3.0.0
     dev: true
-
-  /good-storage/1.1.1:
-    resolution: {integrity: sha512-+0UEpRT03fJgEJoeTVVz41ISC5+jaQrDIWatQ4BoDQfOiBBsjNanymi9sAtLFdEAADQN0FYR8mGpeqxSCe8oXQ==}
-    dev: false
 
   /gzip-size/6.0.0:
     resolution: {integrity: sha512-ax7ZYomf6jqPTQ4+XCpUGyXKHk5WweS+e05MBO4/y3WJ5RkmPXNKvX+bx1behVILVwr6JSQvZAku021CHPXG3Q==}

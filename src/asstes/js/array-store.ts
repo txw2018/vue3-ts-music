@@ -1,4 +1,4 @@
-import storage from 'good-storage'
+import type { Ref } from 'vue'
 
 type CompareType<T> = (value: T, index: number, obj: T[]) => unknown
 
@@ -21,29 +21,16 @@ function deleteFromArray<T = any>(arr: T[], compare: CompareType<T>) {
     arr.splice(index, 1)
 }
 
-export function save<T = any>(item: T, key: string, compare: CompareType<T>, maxLen: number) {
-  const items = storage.get(key, [])
+export function save<T = any>(item: T, storage: Ref<T[]>, compare: CompareType<T>, maxLen: number) {
+  const items = storage.value || []
   insertArray(items, item, compare, maxLen)
-  storage.set(key, items)
+  storage.value = items
   return items
 }
 
-export function remove<T = any>(key: string, compare: CompareType<T>) {
-  const items = storage.get(key, [])
+export function remove<T = any>(storage: Ref<T[]>, compare: CompareType<T>) {
+  const items = storage.value || []
   deleteFromArray(items, compare)
-  storage.set(key, items)
+  storage.value = items
   return items
-}
-
-export function load<T = any>(key: string): T[] {
-  return storage.get(key, [])
-}
-
-export function clear(key: string) {
-  storage.remove(key)
-  return []
-}
-
-export function saveAll<T = any>(items: T[], key: string) {
-  storage.set(key, items)
 }

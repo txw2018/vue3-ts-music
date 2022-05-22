@@ -17,7 +17,6 @@
     "@vueuse/core": "^8.2.5",
     "axios": "^0.27.2",
     "axios-retry": "^3.2.4",
-    "good-storage": "^1.1.1",
     "lyric-parser": "^1.0.1",
     "pinia": "^2.0.14",
     "vconsole": "^3.14.6",

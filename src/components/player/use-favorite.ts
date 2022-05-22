@@ -1,5 +1,5 @@
 import { remove, save } from '~/asstes/js/array-store'
-import { FAVORITE_KEY } from '~/asstes/js/constant'
+import { favoriteStorage } from '~/composables/storage'
 import type { Song } from '~/service/singer.types'
 import { useMainStore } from '~/stores/main'
 
@@ -20,9 +20,9 @@ export default function useFavorite() {
   const toggleFavorite = (song: Song) => {
     let list: Song[]
     if (isFavorite(song))
-      list = remove(FAVORITE_KEY, compare)
+      list = remove(favoriteStorage, compare)
     else
-      list = save(song, FAVORITE_KEY, compare, maxLen)
+      list = save(song, favoriteStorage, compare, maxLen)
 
     mainStore.setFavoriteList(list)
     function compare(item: Song) {

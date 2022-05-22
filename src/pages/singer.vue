@@ -1,16 +1,15 @@
 <script setup lang='ts'>
-import storage from 'good-storage'
 import { getSingerList } from '~/service/singer'
 import indexList from '~/components/base/index-list/index-list.vue'
 import type { Singer, SingerList } from '~/service/singer.types'
-import { SINGER_KEY } from '~/asstes/js/constant'
+import { singerStorage } from '~/composables/storage'
 const router = useRouter()
 const singers = ref<SingerList[]>([])
 const selectedSinger = ref<Singer | null>(null)
 
 const loading = computed(() => singers.value.length === 0)
 const cacheSinger = (singer: Singer) => {
-  storage.session.set(SINGER_KEY, singer)
+  singerStorage.value = singer
 }
 const selectSinger = (singer: Singer) => {
   selectedSinger.value = singer

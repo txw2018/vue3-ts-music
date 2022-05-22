@@ -1,10 +1,9 @@
 <script setup lang='ts'>
-import storage from 'good-storage'
 import { getSingerDetail } from '~/service/singer'
 import type { Singer, Song } from '~/service/singer.types'
 import { processSongs } from '~/service/song'
 import musicList from '~/components/music-list/music-list.vue'
-import { SINGER_KEY } from '~/asstes/js/constant'
+import { singerStorage } from '~/composables/storage'
 const props = defineProps<{
   singer: Singer
   id: string
@@ -20,7 +19,7 @@ const computedSinger = computed(() => {
     ret = singer
   }
   else {
-    const cachedSinger = storage.session.get<Singer>(SINGER_KEY)
+    const cachedSinger = singerStorage.value
     if (cachedSinger && cachedSinger.mid === props.id)
       ret = cachedSinger
   }

@@ -9,8 +9,10 @@ export default function useMode() {
   const modeIcon = computed(() => {
     const playModeVal = playMode.value
     return playModeVal === PLAY_MODE.sequence
-      ? 'i-carbon:repeat '
-      : playModeVal === PLAY_MODE.random ? 'i-carbon:movement' : 'i-carbon:repeat-one'
+      ? 'i-carbon:repeat'
+      : playModeVal === PLAY_MODE.random
+        ? 'i-carbon:movement'
+        : 'i-carbon:repeat-one'
   })
   const changeMode = () => {
     const mode = (playMode.value + 1) % 3
