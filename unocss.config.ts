@@ -28,6 +28,14 @@ export default defineConfig({
       },
     }),
   ],
+  safelist: [
+    'i-carbon:repeat',
+    'i-carbon:movement',
+    'i-carbon:repeat-one',
+    'i-carbon:favorite-filled',
+    'i-carbon:favorite',
+
+  ],
   theme: {
     colors: {
 

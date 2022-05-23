@@ -10,6 +10,7 @@ declare module '@vue/runtime-core' {
     MusicList: typeof import('./src/components/music-list/music-list.vue')['default']
     NoResult: typeof import('./src/components/base/no-result/no-result.vue')['default']
     Player: typeof import('./src/components/player/player.vue')['default']
+    ProgressBar: typeof import('./src/components/player/progress-bar.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     Scroll: typeof import('./src/components/base/scroll/scroll.vue')['default']

@@ -1,11 +1,14 @@
 <script setup lang='ts'>
 import useMode from './use-mode'
 import useFavorite from './use-favorite'
+import progressBar from './progress-bar.vue'
 import { useMainStore } from '~/stores/main'
+import { formatTime } from '~/asstes/js/util'
 const mainStore = useMainStore()
 
 const audioRef = ref<HTMLAudioElement | null>(null)
 const songReady = ref(false)
+const currentTime = ref(0)
 
 const fullScreen = computed(() => mainStore.fullScreen)
 const currentSong = computed(() => mainStore.currentSong)
@@ -18,6 +21,9 @@ const playIcon = computed(() => {
 })
 const disableCls = computed(() => {
   return songReady.value ? '' : 'text-theme-d'
+})
+const progress = computed(() => {
+  return currentTime.value / currentSong.value.duration
 })
 
 // hooks
@@ -82,10 +88,15 @@ const next = () => {
     mainStore.setCurrentIndex(index)
   }
 }
+
+const updateTime = (e: Event) => {
+  currentTime.value = (e.target as HTMLAudioElement).currentTime
+}
 // watch 切换歌曲
 watch(currentSong, (newSong) => {
   if (!newSong.id || !newSong.url)
     return
+  currentTime.value = 0
   songReady.value = false
   const audioEl = audioRef.value!
   audioEl.src = newSong.url
@@ -135,6 +146,15 @@ watch(playing, (newPlaying) => {
           </h2>
         </div>
         <div absolute bottom-50px w-full>
+          <div flex items-center my-0px mx-auto py-10px px-0 class="w-4/5">
+            <span inline-block dark:text-light-base text-dark-base text-xs lh-30px w-40px text-left class="flex-[0_0_40px]">
+              {{ formatTime(currentTime) }}
+            </span>
+            <div flex-1>
+              <progress-bar :progress="progress" />
+            </div>
+            <span inline-block dark:text-light-base text-dark-base text-xs lh-30px w-40px text-right class="flex-[0_0_40px]">{{ formatTime(currentSong.duration) }}</span>
+          </div>
           <div flex items-center>
             <div flex justify-end flex-1 text-theme>
               <div
@@ -189,6 +209,7 @@ watch(playing, (newPlaying) => {
       @pause="pause"
       @canplay="ready"
       @error="error"
+      @timeupdate="updateTime"
     />
   </div>
 </template>
