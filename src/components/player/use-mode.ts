@@ -18,8 +18,8 @@ export default function useMode() {
     const mode = (playMode.value + 1) % 3
     mainStore.changeMode(mode)
   }
-  return toRefs({
+  return {
     modeIcon,
     changeMode,
-  })
+  }
 }

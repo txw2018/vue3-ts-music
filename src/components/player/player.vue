@@ -2,9 +2,12 @@
 import useMode from './use-mode'
 import useFavorite from './use-favorite'
 import progressBar from './progress-bar.vue'
+import useCd from './use-cd'
 import { useMainStore } from '~/stores/main'
 import { formatTime } from '~/asstes/js/util'
+import { PLAY_MODE } from '~/asstes/js/constant'
 const mainStore = useMainStore()
+let progressChanging = false
 
 const audioRef = ref<HTMLAudioElement | null>(null)
 const songReady = ref(false)
@@ -14,7 +17,7 @@ const fullScreen = computed(() => mainStore.fullScreen)
 const currentSong = computed(() => mainStore.currentSong)
 const playing = computed(() => mainStore.playing)
 const currentIndex = computed(() => mainStore.currentIndex)
-// const playMode = computed(() => mainStore.playMode)
+const playMode = computed(() => mainStore.playMode)
 const playlist = computed(() => mainStore.playlist)
 const playIcon = computed(() => {
   return playing.value ? 'i-carbon:pause-outline' : 'i-carbon:play-outline'
@@ -27,6 +30,7 @@ const progress = computed(() => {
 })
 
 // hooks
+const { cdCls, cdRef, cdImageRef } = useCd()
 const { modeIcon, changeMode } = useMode()
 const { getFavoriteIcon, toggleFavorite } = useFavorite()
 
@@ -90,7 +94,27 @@ const next = () => {
 }
 
 const updateTime = (e: Event) => {
-  currentTime.value = (e.target as HTMLAudioElement).currentTime
+  // 正在拖动进度的时候，防止currentTime被改
+  if (!progressChanging)
+    currentTime.value = (e.target as HTMLAudioElement).currentTime
+}
+
+const end = () => {
+  currentTime.value = 0
+  if (playMode.value === PLAY_MODE.loop)
+    loop()
+  else
+    next()
+}
+const onProgressChanging = (progress: number) => {
+  progressChanging = true
+  currentTime.value = currentSong.value.duration * progress
+}
+const onProgressChanged = (progress: number) => {
+  progressChanging = false
+  audioRef.value!.currentTime = currentTime.value = currentSong.value.duration * progress
+  if (!playing.value)
+    mainStore.setPlayingState(true)
 }
 // watch 切换歌曲
 watch(currentSong, (newSong) => {
@@ -145,13 +169,31 @@ watch(playing, (newPlaying) => {
             {{ currentSong.singer }}
           </h2>
         </div>
+        <div fixed w-full top-80px bottom-170px whitespace-nowrap text-0>
+          <div inline-block align-top relative w-full height-0 class="pt-4/5">
+            <div class="absolute left-1/10 top-0 w-4/5 box-border h-full">
+              <div ref="cdRef" class="w-full h-full rounded-1/2">
+                <img
+                  ref="cdImageRef"
+                  :src="currentSong.pic" alt="" absolute left-0 top-0 w-full h-full box-border b-10px
+                  class="rounded-1/2 border-white/10"
+                  :class="cdCls"
+                >
+              </div>
+            </div>
+          </div>
+        </div>
         <div absolute bottom-50px w-full>
           <div flex items-center my-0px mx-auto py-10px px-0 class="w-4/5">
             <span inline-block dark:text-light-base text-dark-base text-xs lh-30px w-40px text-left class="flex-[0_0_40px]">
               {{ formatTime(currentTime) }}
             </span>
             <div flex-1>
-              <progress-bar :progress="progress" />
+              <progress-bar
+                :progress="progress"
+                @progress-changing="onProgressChanging"
+                @progress-changed="onProgressChanged"
+              />
             </div>
             <span inline-block dark:text-light-base text-dark-base text-xs lh-30px w-40px text-right class="flex-[0_0_40px]">{{ formatTime(currentSong.duration) }}</span>
           </div>
@@ -210,6 +252,7 @@ watch(playing, (newPlaying) => {
       @canplay="ready"
       @error="error"
       @timeupdate="updateTime"
+      @ended="end"
     />
   </div>
 </template>

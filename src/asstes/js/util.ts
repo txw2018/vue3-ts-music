@@ -23,3 +23,7 @@ export function formatTime(interval: number) {
   const second = (`${interval % 60}`).padStart(2, '0')
   return `${minute}:${second}`
 }
+
+export function range(value: number, min: number, max: number) {
+  return Math.min(max, Math.max(value, min))
+}

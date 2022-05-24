@@ -34,6 +34,7 @@ export default defineConfig({
     'i-carbon:repeat-one',
     'i-carbon:favorite-filled',
     'i-carbon:favorite',
+    'animate-cd',
 
   ],
   theme: {
@@ -54,6 +55,22 @@ export default defineConfig({
       darkD: 'rgba(0, 0, 0, 0.3)',
       darkL: 'rgba(0, 0, 0, 0.5)',
       darkLl: 'rgba(0, 0, 0, 0.8)',
+    },
+
+    animation: {
+      keyframes: {
+        // cd: {
+        //   '0%': { transform: 'rotate(0)' },
+        //   '100%': { transform: 'rotate(360deg)' },
+        // },
+        cd: '{0% {transform:rotate(0)} 100% { transform: rotate(360deg)}}',
+      },
+      durations: {
+        cd: '20s',
+      },
+      timingFns: {
+        cd: 'linear',
+      },
     },
   },
   // transformers: [
