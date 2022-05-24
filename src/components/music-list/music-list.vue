@@ -25,7 +25,7 @@ const props = defineProps({
 })
 const mainStore = useMainStore()
 const router = useRouter()
-const bgImage = ref<HTMLDivElement | null>(null)
+const bgImage = ref<HTMLDivElement>()
 const scrollY = ref(0)
 const maxTranslateY = ref(0)
 const imageHeight = ref(0)

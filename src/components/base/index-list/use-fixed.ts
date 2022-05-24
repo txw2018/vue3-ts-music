@@ -3,7 +3,7 @@ import type { Pos } from '~/components/base/scroll/scroll'
 
 export default function useFixed(props: IndexListProps) {
   const TITLE_HEIGHT = 30
-  const groupRef = ref<HTMLUListElement | null>(null)
+  const groupRef = ref<HTMLUListElement>()
   const listHeights = ref<number[]>([])
   const currentIndex = ref(0)
   const scrollY = ref(0)

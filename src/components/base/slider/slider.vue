@@ -4,7 +4,7 @@ import type { Slider } from '~/service/recommend.type'
 const { sliders = [] } = defineProps< {
   sliders: Slider[]
 }>()
-const rootRef = ref<HTMLDivElement|null>(null)
+const rootRef = ref<HTMLDivElement>()
 const { currentPageIndex } = useSlider(rootRef)
 
 </script>

@@ -9,7 +9,7 @@ import { PLAY_MODE } from '~/asstes/js/constant'
 const mainStore = useMainStore()
 let progressChanging = false
 
-const audioRef = ref<HTMLAudioElement | null>(null)
+const audioRef = ref<HTMLAudioElement>()
 const songReady = ref(false)
 const currentTime = ref(0)
 

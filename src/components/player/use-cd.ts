@@ -2,8 +2,8 @@ import { useMainStore } from '~/stores/main'
 
 export default function useCd() {
   const mainStore = useMainStore()
-  const cdRef = ref<HTMLDivElement|null>(null)
-  const cdImageRef = ref<HTMLDivElement|null>(null)
+  const cdRef = ref<HTMLDivElement>()
+  const cdImageRef = ref<HTMLDivElement>()
 
   const playing = computed(() => mainStore.playing)
 

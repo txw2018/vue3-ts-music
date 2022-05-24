@@ -8,8 +8,8 @@ BScroll.use(ObserveDOM)
 
 type Emit = SetupContext<ScrollEmits>['emit']
 
-export default function useScroll(wrapperRef: Ref<HTMLDivElement | null>, options: ScrollProps, emit: Emit) {
-  const scroll = ref<BScrollConstructor | null>(null)
+export default function useScroll(wrapperRef: Ref<HTMLDivElement | undefined>, options: ScrollProps, emit: Emit) {
+  const scroll = ref<BScrollConstructor>()
   onMounted(() => {
     const scrollVal = scroll.value = new BScroll(wrapperRef.value!, {
       observeDOM: true,

@@ -7,8 +7,8 @@ import { type Ref, onActivated, onDeactivated, onMounted, onUnmounted, ref } fro
 
 BScroll.use(Slide)
 
-export default function useSlider(wrapperRef: Ref<HTMLDivElement | null>) {
-  const slider = ref<BScrollConstructor | null>(null)
+export default function useSlider(wrapperRef: Ref<HTMLDivElement | undefined>) {
+  const slider = ref<BScrollConstructor>()
   const currentPageIndex = ref(0)
 
   onMounted(() => {

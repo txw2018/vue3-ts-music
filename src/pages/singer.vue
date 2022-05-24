@@ -5,7 +5,7 @@ import type { Singer, SingerList } from '~/service/singer.types'
 import { singerStorage } from '~/composables/storage'
 const router = useRouter()
 const singers = ref<SingerList[]>([])
-const selectedSinger = ref<Singer | null>(null)
+const selectedSinger = ref<Singer>()
 
 const loading = computed(() => singers.value.length === 0)
 const cacheSinger = (singer: Singer) => {

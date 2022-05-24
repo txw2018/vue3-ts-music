@@ -3,7 +3,7 @@ import { scrollEmits, scrollProps } from './scroll'
 import useScroll from './use-scroll'
 const props = defineProps(scrollProps)
 const emit = defineEmits(scrollEmits)
-const rootRef = ref<HTMLDivElement | null>(null)
+const rootRef = ref<HTMLDivElement>()
 const scroll = useScroll(rootRef, props, emit)
 
 defineExpose({

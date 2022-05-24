@@ -2,9 +2,9 @@
 import { getRecommend } from '~/service/recommend'
 import type { Album, Recommend, Slider } from '~/service/recommend.type'
 import Scroll from '~/components/base/scroll/scroll.vue'
-const sliders = ref<Slider[] | null>(null)
-const albums = ref<Album[] | null>(null)
-const selectedAlbum = ref<Album|null>(null)
+const sliders = ref<Slider[] >()
+const albums = ref<Album[] >()
+const selectedAlbum = ref<Album>()
 const selectItem = (item: Album) => {
   selectedAlbum.value = item
 }

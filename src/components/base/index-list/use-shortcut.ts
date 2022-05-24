@@ -2,9 +2,9 @@ import type { Ref } from 'vue'
 import type { IndexListProps } from './index-list'
 import type Scroll from '~/components/base/scroll/scroll.vue'
 
-export default function useShortcut(props: IndexListProps, groupRef: Ref<HTMLUListElement | null>) {
+export default function useShortcut(props: IndexListProps, groupRef: Ref<HTMLUListElement | undefined>) {
   const ANCHOR_HEIGHT = 18
-  const scrollRef = ref<InstanceType<typeof Scroll> | null>(null)
+  const scrollRef = ref<InstanceType<typeof Scroll>>()
   const shortcutList = computed(() => {
     return props.data.map((group) => {
       return group.title

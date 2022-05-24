@@ -19,8 +19,8 @@ const emit = defineEmits<{
 const progressBtnWidth = 16
 const touch: Touch = {}
 const offset = ref(0)
-const progressRef = ref<HTMLDivElement | null>(null)
-const progressBarRef = ref<HTMLDivElement | null>(null)
+const progressRef = ref<HTMLDivElement>()
+const progressBarRef = ref<HTMLDivElement>()
 
 const progressStyle = computed(() => `width:${offset.value}px`)
 const btnStyle = computed(() => `transform:translate3d(${offset.value}px,0,0)`)
