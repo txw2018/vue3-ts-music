@@ -3,6 +3,7 @@ import useMode from './use-mode'
 import useFavorite from './use-favorite'
 import progressBar from './progress-bar.vue'
 import useCd from './use-cd'
+import useLyric from './use-lyric'
 import { useMainStore } from '~/stores/main'
 import { formatTime } from '~/asstes/js/util'
 import { PLAY_MODE } from '~/asstes/js/constant'
@@ -33,6 +34,7 @@ const progress = computed(() => {
 const { cdCls, cdRef, cdImageRef } = useCd()
 const { modeIcon, changeMode } = useMode()
 const { getFavoriteIcon, toggleFavorite } = useFavorite()
+useLyric()
 
 const goBack = () => {
   mainStore.setFullScreen(false)

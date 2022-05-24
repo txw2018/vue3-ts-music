@@ -26,6 +26,13 @@ export const useMainStore = defineStore('main', () => {
   const setFullScreen = (fullScreenVal: boolean) => fullScreen.value = fullScreenVal
   const setFavoriteList = (list: Song[]) => { favoriteList.value = list }
 
+  const addSongLyric = (song: Song, lyric: string) => {
+    sequenceList.value.forEach((item) => {
+      if (item.mid === song.mid)
+        item.lyric = lyric
+    })
+  }
+
   // action
   const selectPlay = ({ list, index }: { list: Song[]; index: number }) => {
     setPlayMode(PLAY_MODE.sequence)
@@ -79,6 +86,7 @@ export const useMainStore = defineStore('main', () => {
     setCurrentIndex,
     setFullScreen,
     setFavoriteList,
+    addSongLyric,
     // action
     selectPlay,
     randomPlay,
