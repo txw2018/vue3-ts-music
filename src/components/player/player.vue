@@ -4,6 +4,7 @@ import useFavorite from './use-favorite'
 import progressBar from './progress-bar.vue'
 import useCd from './use-cd'
 import useLyric from './use-lyric'
+import useMiddleInteractive from './use-middle-interactive'
 import { useMainStore } from '~/stores/main'
 import { formatTime } from '~/asstes/js/util'
 import { PLAY_MODE } from '~/asstes/js/constant'
@@ -34,7 +35,23 @@ const progress = computed(() => {
 const { cdCls, cdRef, cdImageRef } = useCd()
 const { modeIcon, changeMode } = useMode()
 const { getFavoriteIcon, toggleFavorite } = useFavorite()
-useLyric()
+const {
+  currentLyric,
+  currentLineNum,
+  playingLyric,
+  lyricListRef,
+  lyricScrollRef,
+  playLyric,
+  stopLyric,
+} = useLyric({ songReady, currentTime })
+const {
+  currentShow,
+  middleLStyle,
+  middleRStyle,
+  onMiddleTouchStart,
+  onMiddleTouchMove,
+  onMiddleTouchEnd,
+} = useMiddleInteractive()
 
 const goBack = () => {
   mainStore.setFullScreen(false)
@@ -57,6 +74,7 @@ const ready = () => {
   if (songReady.value)
     return
   songReady.value = true
+  playLyric() // 缓冲之后播放歌词
 }
 const error = () => {
   songReady.value = true
@@ -111,12 +129,16 @@ const end = () => {
 const onProgressChanging = (progress: number) => {
   progressChanging = true
   currentTime.value = currentSong.value.duration * progress
+  playLyric() // 拖动歌词的时候同步歌词位置 然后暂停歌词，等拖动完再播放歌词
+  stopLyric()
 }
 const onProgressChanged = (progress: number) => {
   progressChanging = false
   audioRef.value!.currentTime = currentTime.value = currentSong.value.duration * progress
   if (!playing.value)
     mainStore.setPlayingState(true)
+
+  playLyric()// 拖动完再播放歌词
 }
 // watch 切换歌曲
 watch(currentSong, (newSong) => {
@@ -133,11 +155,15 @@ watch(currentSong, (newSong) => {
 watch(playing, (newPlaying) => {
   if (!songReady.value)
     return
-  const audioEl = audioRef.value
-  if (newPlaying)
-    audioEl?.play()
-  else
-    audioEl?.pause()
+  const audioEl = audioRef.value!
+  if (newPlaying) {
+    audioEl.play()
+    playLyric() // 播放歌词
+  }
+  else {
+    audioEl.pause()
+    stopLyric() // 暂停歌词
+  }
 })
 
 </script>
@@ -171,9 +197,20 @@ watch(playing, (newPlaying) => {
             {{ currentSong.singer }}
           </h2>
         </div>
-        <div fixed w-full top-80px bottom-170px whitespace-nowrap text-0>
-          <div inline-block align-top relative w-full height-0 class="pt-4/5">
-            <div class="absolute left-1/10 top-0 w-4/5 box-border h-full">
+        <div
+          fixed w-full top-80px bottom-170px whitespace-nowrap text-0
+          @touchstart.prevent="onMiddleTouchStart"
+          @touchmove.prevent="onMiddleTouchMove"
+          @touchend.prevent="onMiddleTouchEnd"
+        >
+          <div
+            inline-block align-top relative w-full h-0 class="pt-4/5"
+            :style="middleLStyle"
+          >
+            <div
+              ref="cdWrapperRef"
+              class="absolute left-1/10 top-0 w-4/5 box-border h-full"
+            >
               <div ref="cdRef" class="w-full h-full rounded-1/2">
                 <img
                   ref="cdImageRef"
@@ -183,9 +220,50 @@ watch(playing, (newPlaying) => {
                 >
               </div>
             </div>
+            <div
+              class="w-4/5"
+              mt-30px mb-0px mx-auto overflow-hidden text-center
+            >
+              <div h-20px lh-20px text="sm light-l">
+                {{ playingLyric }}
+              </div>
+            </div>
           </div>
+          <scroll
+            ref="lyricScrollRef"
+            inline-block align-top w-full h-full
+            overflow-hidden
+            :style="middleRStyle"
+          >
+            <div
+              class="4/5 my-0 mx-auto overflow-hidden text-center"
+            >
+              <div v-if="currentLyric" ref="lyricListRef">
+                <p
+                  v-for="(line,index) in currentLyric.lines"
+                  :key="line.time"
+                  lh-32px text-sm
+                  :class="[currentLineNum === index ? 'text-light-base':'text-light-l']"
+                >
+                  {{ line.txt }}
+                </p>
+              </div>
+            </div>
+          </scroll>
         </div>
         <div absolute bottom-50px w-full>
+          <div text-center text-0>
+            <span
+              inline-block align-middle my-0 mx-4px h-8px
+              class="rounded-1/2"
+              :class="[currentShow ==='cd'? 'w-20px rounded-5px bg-light-ll':' w-8px bg-light-l']"
+            />
+            <span
+              inline-block align-middle my-0 mx-4px h-8px
+              class="rounded-1/2"
+              :class="[currentShow==='lyric'? 'w-20px rounded-5px bg-light-ll':' w-8px bg-light-l']"
+            />
+          </div>
           <div flex items-center my-0px mx-auto py-10px px-0 class="w-4/5">
             <span inline-block dark:text-light-base text-dark-base text-xs lh-30px w-40px text-left class="flex-[0_0_40px]">
               {{ formatTime(currentTime) }}

@@ -27,10 +27,12 @@ export const useMainStore = defineStore('main', () => {
   const setFavoriteList = (list: Song[]) => { favoriteList.value = list }
 
   const addSongLyric = (song: Song, lyric: string) => {
-    sequenceList.value.forEach((item) => {
-      if (item.mid === song.mid)
+    for (const item of sequenceList.value) {
+      if (item.mid === song.mid) {
         item.lyric = lyric
-    })
+        return
+      }
+    }
   }
 
   // action

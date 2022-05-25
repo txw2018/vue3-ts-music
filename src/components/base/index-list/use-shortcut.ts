@@ -1,6 +1,7 @@
 import type { Ref } from 'vue'
 import type { IndexListProps } from './index-list'
 import type Scroll from '~/components/base/scroll/scroll.vue'
+import { range } from '~/asstes/js/util'
 
 export default function useShortcut(props: IndexListProps, groupRef: Ref<HTMLUListElement | undefined>) {
   const ANCHOR_HEIGHT = 18
@@ -15,7 +16,7 @@ export default function useShortcut(props: IndexListProps, groupRef: Ref<HTMLULi
     // touch target 可能不是li，就没有index ，所以index可能NAN
     if (isNaN(index))
       return
-    index = Math.max(0, Math.min(shortcutList.value.length - 1, index))
+    index = range(index, 0, shortcutList.value.length - 1)
     const targetEl = groupRef.value!.children[index] as HTMLElement
     const scroll = scrollRef.value!.scroll!
     scroll.scrollToElement(targetEl, 0, 0, 0)
