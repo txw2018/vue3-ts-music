@@ -326,6 +326,7 @@ watch(playing, (newPlaying) => {
         </div>
       </template>
     </div>
+    <mini-player :progress="progress" :toggle-play="togglePlay" />
     <audio
       ref="audioRef"
       @pause="pause"
