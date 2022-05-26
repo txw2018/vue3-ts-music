@@ -2,8 +2,8 @@
 import { getRecommend } from '~/service/recommend'
 import type { Album, Recommend, Slider } from '~/service/recommend.type'
 import Scroll from '~/components/base/scroll/scroll.vue'
-const sliders = ref<Slider[] >()
-const albums = ref<Album[] >()
+const sliders = ref<Slider[] >([])
+const albums = ref<Album[] >([])
 const selectedAlbum = ref<Album>()
 const selectItem = (item: Album) => {
   selectedAlbum.value = item
@@ -24,7 +24,7 @@ onMounted(async() => {
         <div relative w-full h-0 overflow-hidden class="pt-2/5">
           <div absolute left-0 top-0 w-full>
             <Slider
-              v-if="sliders?.length"
+              v-if="sliders!.length"
               :sliders="sliders!"
             />
           </div>

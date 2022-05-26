@@ -58,6 +58,10 @@ const onClick = (e: MouseEvent) => {
 watch(() => props.progress, (newProgress) => {
   setOffset(newProgress)
 })
+
+defineExpose({
+  setOffset,
+})
 </script>
 <template>
   <div ref="progressBarRef" h-30px @click="onClick">

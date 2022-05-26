@@ -24,14 +24,14 @@ const dashOffset = computed(() => (1 - props.progress) * dashArray)
       xmlns="http://www.w3.org/2000/svg"
     >
       <circle
-        class="scale-90 stroke-light-d"
+        class="stroke-8px origin-center scale-90 stroke-theme-d"
         r="50"
         cx="50"
         cy="50"
         fill="transparent"
       />
       <circle
-        class="scale-90 rotate-90 stroke-light"
+        class="stroke-8px origin-center scale-90 -rotate-90 stroke-theme"
         r="50"
         cx="50"
         cy="50"

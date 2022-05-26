@@ -1,7 +1,7 @@
 <script setup lang='ts'>
 import useMode from './use-mode'
 import useFavorite from './use-favorite'
-import progressBar from './progress-bar.vue'
+import type progressBar from './progress-bar.vue'
 import useCd from './use-cd'
 import useLyric from './use-lyric'
 import useMiddleInteractive from './use-middle-interactive'
@@ -12,6 +12,7 @@ const mainStore = useMainStore()
 let progressChanging = false
 
 const audioRef = ref<HTMLAudioElement>()
+const barRef = ref<InstanceType< typeof progressBar>>()
 const songReady = ref(false)
 const currentTime = ref(0)
 
@@ -165,10 +166,15 @@ watch(playing, (newPlaying) => {
     stopLyric() // 暂停歌词
   }
 })
-
+watch(fullScreen, async(newFullScreen) => {
+  if (newFullScreen) {
+    await nextTick()
+    barRef.value!.setOffset(progress.value)
+  }
+})
 </script>
 <template>
-  <div>
+  <div v-show="playlist.length">
     <div
       v-show="fullScreen"
       fixed left-0 right-0 top-0 bottom-0 z-150 bg-light dark:bg-dark
@@ -270,12 +276,14 @@ watch(playing, (newPlaying) => {
             </span>
             <div flex-1>
               <progress-bar
+                ref="barRef"
                 :progress="progress"
                 @progress-changing="onProgressChanging"
                 @progress-changed="onProgressChanged"
               />
             </div>
-            <span inline-block dark:text-light-base text-dark-base text-xs lh-30px w-40px text-right class="flex-[0_0_40px]">{{ formatTime(currentSong.duration) }}</span>
+            <span inline-block dark:text-light-base text-dark-base text-xs lh-30px w-40px text-right class="flex-[0_0_40px]">
+              {{ formatTime(currentSong.duration) }}</span>
           </div>
           <div flex items-center>
             <div flex justify-end flex-1 text-theme>
@@ -326,7 +334,10 @@ watch(playing, (newPlaying) => {
         </div>
       </template>
     </div>
-    <mini-player :progress="progress" :toggle-play="togglePlay" />
+    <mini-player
+      :progress="progress"
+      :toggle-play="togglePlay"
+    />
     <audio
       ref="audioRef"
       @pause="pause"
@@ -337,5 +348,3 @@ watch(playing, (newPlaying) => {
     />
   </div>
 </template>
-<style scoped>
-</style>

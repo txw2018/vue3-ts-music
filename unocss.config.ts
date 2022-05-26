@@ -28,6 +28,13 @@ export default defineConfig({
       },
     }),
   ],
+  rules: [
+    ['no-wrap', {
+      'text-overflow': 'ellipsis',
+      'overflow': 'hidden',
+      'white-space': 'nowrap',
+    }],
+  ],
   safelist: [
     'i-carbon:repeat',
     'i-carbon:movement',

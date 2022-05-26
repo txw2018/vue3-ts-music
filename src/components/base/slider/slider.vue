@@ -1,7 +1,7 @@
 <script setup lang='ts'>
 import useSlider from './use-slider'
 import type { Slider } from '~/service/recommend.type'
-const { sliders = [] } = defineProps< {
+defineProps< {
   sliders: Slider[]
 }>()
 const rootRef = ref<HTMLDivElement>()

@@ -16,7 +16,7 @@ export const useMainStore = defineStore('main', () => {
   const playHistory = ref<Song[]>([])// 播放历史列表
 
   // getters
-  const currentSong = computed(() => playlist.value[currentIndex.value])
+  const currentSong = computed(() => playlist.value[currentIndex.value] || {})
   // mutation
   const setPlayingState = (playingVal: boolean) => playing.value = playingVal
   const setSequenceList = (list: Song[]) => sequenceList.value = list
