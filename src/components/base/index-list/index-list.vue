@@ -30,7 +30,7 @@ const onItemClick = (item: Singer) => {
         :key="group.title"
         pb-30px
       >
-        <h2 h-30px lh-30px pl-20px text-sm dark:text-light-l dark:bg-dark-highlight-background bg-light-highlight-background>
+        <h2 h-30px lh-30px pl-20px text-sm dark:text-light-l dark:bg-dark-highlight bg-light-highlight>
           {{ group.title }}
         </h2>
         <ul>
@@ -57,14 +57,14 @@ const onItemClick = (item: Singer) => {
     >
       <div
         h-30px lh-30px pl-20px text-sm dark:text-light-l
-        dark:bg-dark-highlight-background bg-light-highlight-background
+        dark:bg-dark-highlight bg-light-highlight
       >
         {{ fixedTitle }}
       </div>
     </div>
     <div
       absolute right-4px w-20px py-20px rounded-10px text-center
-      bg-dark-background-d
+      bg-dark-d
       class="top-1/2 -translate-y-1/2"
       @touchstart.stop.prevent="onShortcutTouchStart"
       @touchmove.stop.prevent="onShortcutTouchMove"

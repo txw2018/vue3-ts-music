@@ -15,7 +15,7 @@ export default function useFavorite() {
   }
 
   const getFavoriteIcon = (song: Song) => {
-    return isFavorite(song) ? 'i-carbon:favorite-filled' : 'i-carbon:favorite'
+    return isFavorite(song) ? 'i-carbon:favorite-filled text-sub-theme' : 'i-carbon:favorite'
   }
   const toggleFavorite = (song: Song) => {
     let list: Song[]

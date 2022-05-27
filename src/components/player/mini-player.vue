@@ -2,6 +2,7 @@
 import type { PropType } from 'vue'
 import useCd from './use-cd'
 import useMiniSlider from './use-mini-slider'
+import type Playlist from './playlist.vue'
 import { useMainStore } from '~/stores/main'
 defineProps({
   progress: {
@@ -10,6 +11,7 @@ defineProps({
   },
   togglePlay: Function as PropType<(payload: MouseEvent) => void>,
 })
+const playlistRef = ref<InstanceType<typeof Playlist> >()
 const mainStore = useMainStore()
 const { cdCls, cdImageRef, cdRef } = useCd()
 
@@ -25,12 +27,15 @@ const showNormalPlayer = () => {
   mainStore.setFullScreen(true)
 }
 
+const showPlaylist = () => {
+  playlistRef.value!.show()
+}
 </script>
 <template>
   <transition name="mini">
     <div
       v-show="!fullScreen"
-      flex items-center fixed left-0 bottom-0 z-180 w-full h-60px bg-dark-highlight-background
+      flex items-center fixed left-0 bottom-0 z-180 w-full h-60px bg-dark-highlight
       @click="showNormalPlayer"
     >
       <div class=" box-content flex-[0_0_40px] w-40px h-40px py-0px pr-10px pl-20px">
@@ -82,6 +87,15 @@ const showNormalPlayer = () => {
           />
         </progress-circle>
       </div>
+      <div
+        class="flex-[0_0_30px] w-52px py-0 px-10px"
+        @click.stop="showPlaylist"
+      >
+        <div
+          class="i-carbon:query-queue relative top--2px" text="size-28px theme-d"
+        />
+      </div>
+      <Playlist ref="playlistRef" />
     </div>
   </transition>
 </template>
