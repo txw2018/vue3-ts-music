@@ -35,6 +35,11 @@ export const useMainStore = defineStore('main', () => {
     }
   }
 
+  const findIndex = (list: Song[], song: Song) => {
+    return list.findIndex((item) => {
+      return item.id === song.id
+    })
+  }
   // action
   const selectPlay = ({ list, index }: { list: Song[]; index: number }) => {
     setPlayMode(PLAY_MODE.sequence)
@@ -68,6 +73,29 @@ export const useMainStore = defineStore('main', () => {
     setPlayMode(mode)
   }
 
+  const removeSong = (song: Song) => {
+    const sequenceListVal = sequenceList.value.slice()
+    const playlistVal = playlist.value.slice()
+    const sequenceIndex = findIndex(sequenceListVal, song)
+    const playIndex = findIndex(playlistVal, song)
+    if (sequenceIndex < 0 || playIndex < 0)
+      return
+
+    sequenceListVal.splice(sequenceIndex, 1)
+    playlistVal.splice(playIndex, 1)
+
+    let currentIndexVal = currentIndex.value
+    if (playIndex < currentIndexVal || currentIndexVal === playlistVal.length)
+      --currentIndexVal
+
+    setSequenceList(sequenceListVal)
+    setPlaylist(playlistVal)
+    setCurrentIndex(currentIndexVal)
+
+    if (!playlist.value.length)
+      setPlayingState(false)
+  }
+
   return {
     // state
     sequenceList,
@@ -93,6 +121,7 @@ export const useMainStore = defineStore('main', () => {
     selectPlay,
     randomPlay,
     changeMode,
+    removeSong,
 
   }
 })

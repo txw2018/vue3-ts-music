@@ -5,6 +5,7 @@ import Vue from '@vitejs/plugin-vue'
 import Pages from 'vite-plugin-pages'
 import Components from 'unplugin-vue-components/vite'
 import AutoImport from 'unplugin-auto-import/vite'
+import vueJsx from '@vitejs/plugin-vue-jsx'
 import Unocss from 'unocss/vite'
 
 export default defineConfig({
@@ -20,6 +21,7 @@ export default defineConfig({
     Vue({
       reactivityTransform: true,
     }),
+    vueJsx({}),
 
     // https://github.com/hannoeru/vite-plugin-pages
     Pages({

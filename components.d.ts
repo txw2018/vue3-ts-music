@@ -4,6 +4,7 @@
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    Dialog: typeof import('./src/components/base/dialog/dialog.vue')['default']
     Header: typeof import('./src/components/header/header.vue')['default']
     IndexList: typeof import('./src/components/base/index-list/index-list.vue')['default']
     Loading: typeof import('./src/components/base/loading/loading.vue')['default']

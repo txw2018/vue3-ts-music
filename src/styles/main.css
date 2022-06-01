@@ -20,3 +20,10 @@ html.dark {
 .slide-enter-from, .slide-leave-to {
   transform: translate3d(100%, 0, 0)
 }
+.list-enter-active, .list-leave-active {
+  transition: all 0.3s;
+}
+
+.list-enter-from, .list-leave-to {
+  height: 0 !important;
+}

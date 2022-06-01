@@ -50,6 +50,7 @@ export default function useMiniSlider() {
         sliderVal.goToPage(newIndex, 0, 0)
     })
 
+    // 监听歌曲删除之后要重新refresh
     watch(playlist, async(newList) => {
       if (sliderVal && sliderShow.value && newList.length > 0) {
         await nextTick

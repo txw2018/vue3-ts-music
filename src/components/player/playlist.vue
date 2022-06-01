@@ -1,16 +1,17 @@
 <script setup lang='ts'>
+import type { ComponentPublicInstance } from 'vue'
+import type scroll from '../base/scroll/scroll.vue'
+import { Dialog } from '../base/dialog'
 import useMode from './use-mode'
 import useFavorite from './use-favorite'
 import { useMainStore } from '~/stores/main'
 import type { Song } from '~/service/singer.types'
-
 const mainStore = useMainStore()
 const visible = ref(false)
 const removing = ref(false)
-const scrollRef = ref(null)
-const listRef = ref(null)
-const confirmRef = ref(null)
-const addSongRef = ref(null)
+const scrollRef = ref<InstanceType<typeof scroll>>()
+const listRef = ref<ComponentPublicInstance<HTMLUListElement>>()
+// const addSongRef = ref(null)
 
 const playlist = computed(() => mainStore.playlist)
 const sequenceList = computed(() => mainStore.sequenceList)
@@ -22,6 +23,17 @@ const getCurrentIcon = (song: Song) => {
   if (song.id === currentSong.value.id)
     return 'i-carbon:pause-outline'
 }
+
+const scrollToCurrent = () => {
+  const index = sequenceList.value.findIndex((song) => {
+    return currentSong.value.id === song.id
+  })
+  if (index === -1)
+    return
+  const target = listRef.value!.$el.children[index]
+
+  scrollRef.value?.scroll?.scrollToElement(target, 300, 0, 0)
+}
 const refreshScroll = () => {
 
 }
@@ -29,25 +41,41 @@ const show = async() => {
   visible.value = true
   await nextTick()
   refreshScroll()
+  scrollToCurrent()
 }
 const hide = () => {
   visible.value = false
 }
 const showConfirm = () => {
-
+  Dialog.confirm({
+    message: '是否清空播放列表？',
+  }).then(() => {
+    console.log(123)
+  }).catch(() => {
+    console.log(321)
+  })
 }
 const selectItem = (song: Song) => {
-
+  const index = playlist.value.findIndex((item) => {
+    return song.id === item.id
+  })
+  mainStore.setCurrentIndex(index)
+  mainStore.setPlayingState(true)
 }
 const removeSong = (song: Song) => {
-
+  mainStore.removeSong(song)
 }
 const showAddSong = () => {
 
 }
-const confirmClear = () => {
 
-}
+watch(currentSong, async(newSong) => {
+  if (!visible.value || !newSong.id)
+    return
+
+  await nextTick()
+  scrollToCurrent()
+})
 
 defineExpose({
   show,
@@ -62,7 +90,11 @@ defineExpose({
         fixed left-0 right-0 top-0 bottom-0 z-200 bg-dark-d
         @click="hide"
       >
-        <div fixed left-0 bottom-0 z-210 w-full bg-dark-highlight @click.stop>
+        <div
+          class="list-wrapper"
+          fixed left-0 bottom-0 z-210 w-full bg-dark-highlight
+          @click.stop
+        >
           <div relative pt-20px pr-30px pb-10px pl-20px>
             <h1 flex="~ items-center">
               <div
@@ -124,8 +156,8 @@ defineExpose({
             <span>关闭</span>
           </div>
         </div>
-        <!-- <confirm
-          ref="confirmRef"
+        <!-- <ConfirmCom
+          v-model:show="isShow"
           text="是否清空播放列表？"
           confirm-btn-text="清空"
           @confirm="confirmClear"
@@ -135,3 +167,18 @@ defineExpose({
     </transition>
   </teleport>
 </template>
+
+<style scope >
+.list-fade-enter-active, .list-fade-leave-active {
+ transition: opacity 0.3s;
+}
+.list-fade-enter-active .list-wrapper , .list-fade-leave-active .list-wrapper {
+ transition: all  0.3s;
+}
+.list-fade-enter-from, .list-fade-leave-to {
+  opacity: 0;
+}
+.list-fade-enter-from  .list-wrapper, .list-fade-leave-to .list-wrapper {
+  transform: translate3d(0, 100%, 0);
+}
+</style>
