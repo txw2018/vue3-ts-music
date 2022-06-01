@@ -96,6 +96,14 @@ export const useMainStore = defineStore('main', () => {
       setPlayingState(false)
   }
 
+  const clearSongList = () => {
+    setSequenceList([])
+    setPlaylist([])
+    setCurrentIndex(0)
+    setPlayingState(false)
+
+  }
+
   return {
     // state
     sequenceList,
@@ -122,6 +130,7 @@ export const useMainStore = defineStore('main', () => {
     randomPlay,
     changeMode,
     removeSong,
+    clearSongList
 
   }
 })

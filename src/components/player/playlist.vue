@@ -50,9 +50,8 @@ const showConfirm = () => {
   Dialog.confirm({
     message: '是否清空播放列表？',
   }).then(() => {
-    console.log(123)
-  }).catch(() => {
-    console.log(321)
+    mainStore.clearSongList()
+    hide
   })
 }
 const selectItem = (song: Song) => {
