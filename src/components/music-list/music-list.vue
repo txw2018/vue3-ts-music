@@ -1,6 +1,6 @@
 <script setup lang='ts'>
 import type { PropType } from 'vue'
-import Scroll from '../base/scroll/scroll.vue'
+import Scroll from '../wrap-scroll/wrap-scroll.vue'
 import SongList from '../base/song-list/song-list.vue'
 import type { Pos } from '../base/scroll/scroll'
 import type { Song } from '~/service/singer.types'
@@ -30,6 +30,7 @@ const scrollY = ref(0)
 const maxTranslateY = ref(0)
 const imageHeight = ref(0)
 
+const playlist = computed(() => mainStore.playlist)
 const bgImageStyle = computed(() => {
   let zIndex = 0
   let paddingTop: string|number = '70%'
@@ -80,9 +81,10 @@ const filterStyle = computed(() => {
   }
 })
 const scrollStyle = computed(() => {
+  const bottom = playlist.value.length ? '60px' : '0'
   return {
     top: `${imageHeight.value}px`,
-
+    bottom,
   }
 })
 const noResult = computed(() => !props.loading && !props.songs.length)

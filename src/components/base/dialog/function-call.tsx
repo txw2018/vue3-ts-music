@@ -1,5 +1,5 @@
 import { createApp, getCurrentInstance } from 'vue'
-import type{ ComponentPublicInstance } from 'vue'
+import type{ App, ComponentPublicInstance } from 'vue'
 import DialogVue from './dialog.vue'
 import type { DialogAction, DialogProps } from './dialog'
 let instance: ComponentPublicInstance<{}, any>
@@ -60,7 +60,12 @@ Dialog.close = () => {
     instance.close()
 }
 Dialog.Component = DialogVue
-export {
 
+Dialog.install = (app: App) => {
+  app.component('Dialog', DialogVue)
+  app.config.globalProperties.$dialog = Dialog
+}
+
+export {
   Dialog,
 }

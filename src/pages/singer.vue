@@ -1,6 +1,6 @@
 <script setup lang='ts'>
 import { getSingerList } from '~/service/singer'
-import indexList from '~/components/base/index-list/index-list.vue'
+import indexList from '~/components/index-list/index-list.vue'
 import type { Singer, SingerList } from '~/service/singer.types'
 import { singerStorage } from '~/composables/storage'
 const router = useRouter()

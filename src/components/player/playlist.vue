@@ -51,7 +51,9 @@ const showConfirm = () => {
     message: '是否清空播放列表？',
   }).then(() => {
     mainStore.clearSongList()
-    hide
+    hide()
+  }).catch(() => {
+
   })
 }
 const selectItem = (song: Song) => {

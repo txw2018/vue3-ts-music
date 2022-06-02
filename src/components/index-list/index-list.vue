@@ -2,8 +2,8 @@
 import { indexListProps } from './index-list'
 import useFixed from './use-fixed'
 import useShortcut from './use-shortcut'
-import Scroll from '~/components/base/scroll/scroll.vue'
 import type { Singer } from '~/service/singer.types'
+import Scroll from '~/components/wrap-scroll/wrap-scroll.vue'
 
 const props = defineProps(indexListProps)
 const emit = defineEmits<{

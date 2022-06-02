@@ -6,7 +6,7 @@ declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     Dialog: typeof import('./src/components/base/dialog/dialog.vue')['default']
     Header: typeof import('./src/components/header/header.vue')['default']
-    IndexList: typeof import('./src/components/base/index-list/index-list.vue')['default']
+    IndexList: typeof import('./src/components/index-list/index-list.vue')['default']
     Loading: typeof import('./src/components/base/loading/loading.vue')['default']
     MiniPlayer: typeof import('./src/components/player/mini-player.vue')['default']
     MusicList: typeof import('./src/components/music-list/music-list.vue')['default']
@@ -21,6 +21,7 @@ declare module '@vue/runtime-core' {
     Slider: typeof import('./src/components/base/slider/slider.vue')['default']
     SongList: typeof import('./src/components/base/song-list/song-list.vue')['default']
     Tab: typeof import('./src/components/tab/tab.vue')['default']
+    WrapScroll: typeof import('./src/components/wrap-scroll/wrap-scroll.vue')['default']
   }
 }
 

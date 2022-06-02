@@ -1,7 +1,7 @@
 <script setup lang='ts'>
 import { getRecommend } from '~/service/recommend'
 import type { Album, Recommend, Slider } from '~/service/recommend.type'
-import Scroll from '~/components/base/scroll/scroll.vue'
+import Scroll from '~/components/wrap-scroll/wrap-scroll.vue'
 const sliders = ref<Slider[] >([])
 const albums = ref<Album[] >([])
 const selectedAlbum = ref<Album>()
