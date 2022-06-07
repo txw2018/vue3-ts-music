@@ -159,7 +159,7 @@ onMounted(() => {
       <div
         py-20px px-30px dark:bg-dark bg-light
       >
-        <song-list :songs="songs" @select="selectItem" />
+        <song-list :rank="rank" :songs="songs" @select="selectItem" />
       </div>
     </scroll>
   </div>

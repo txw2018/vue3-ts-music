@@ -1,14 +1,14 @@
 <script setup lang='ts'>
-import { getSingerDetail } from '~/service/singer'
+import { getTopDetail } from '~/service/top-list'
 import type { Singer } from '~/service/singer.types'
 import musicList from '~/components/music-list/music-list.vue'
-import { singerStorage } from '~/composables/storage'
+import { topListStorage } from '~/composables/storage'
 import useDetailComponent from '~/composables/useDetailComponent'
 const props = defineProps<{
   data: Singer
   id: string
 }>()
-const { songs, title, pic, loading } = useDetailComponent(props, singerStorage, getSingerDetail)
+const { songs, title, pic, loading } = useDetailComponent(props, topListStorage, getTopDetail)
 </script>
 <template>
   <div
@@ -19,6 +19,7 @@ const { songs, title, pic, loading } = useDetailComponent(props, singerStorage, 
       :pic="pic"
       :songs="songs"
       :loading="loading"
+      rank
     />
   </div>
 </template>

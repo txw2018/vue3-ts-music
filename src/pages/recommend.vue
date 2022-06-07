@@ -2,11 +2,20 @@
 import { getRecommend } from '~/service/recommend'
 import type { Album, Recommend, Slider } from '~/service/recommend.type'
 import Scroll from '~/components/wrap-scroll/wrap-scroll.vue'
+import { albumStorage } from '~/composables/storage'
+const router = useRouter()
 const sliders = ref<Slider[] >([])
 const albums = ref<Album[] >([])
 const selectedAlbum = ref<Album>()
-const selectItem = (item: Album) => {
-  selectedAlbum.value = item
+const cacheAlbum = (album: Album) => {
+  albumStorage.value = album
+}
+const selectItem = (album: Album) => {
+  selectedAlbum.value = album
+  cacheAlbum(album)
+  router.push({
+    path: `/recommend/${album.id}`,
+  })
 }
 const loading = computed(() => !sliders.value?.length && !albums.value?.length)
 
@@ -55,5 +64,10 @@ onMounted(async() => {
         </div>
       </div>
     </Scroll>
+    <router-view v-slot="{Component}">
+      <transition appear name="slide">
+        <component :is="Component" :data="selectedAlbum" />
+      </transition>
+    </router-view>
   </div>
 </template>

@@ -13,3 +13,6 @@ export interface Recommend{
   albums: Album[]
   sliders: Slider[]
 }
+export interface AlbumParams {
+  id: string
+}

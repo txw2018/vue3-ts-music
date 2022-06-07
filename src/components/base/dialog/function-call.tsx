@@ -2,6 +2,7 @@ import { createApp, getCurrentInstance } from 'vue'
 import type{ App, ComponentPublicInstance } from 'vue'
 import DialogVue from './dialog.vue'
 import type { DialogAction, DialogProps } from './dialog'
+import { extend } from '~/asstes/js/basic'
 let instance: ComponentPublicInstance<{}, any>
 
 function initInstance() {
@@ -17,14 +18,14 @@ function initInstance() {
         state.show = show
       }
       const open = (props: Record<string, any>) => {
-        Object.assign(state, props)
+        extend(state, props)
 
         toggle(true)
       }
       const close = () => toggle(false)
 
       const wrapperInstance = getCurrentInstance()!
-      Object.assign(wrapperInstance.proxy, {
+      extend(wrapperInstance.proxy, {
         open,
         close,
       })
