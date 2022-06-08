@@ -1,6 +1,6 @@
 <script setup lang='ts'>
 import { getHotKeys } from '~/service/search'
-import type { HotKey } from '~/service/search.type'
+import type { HotKey } from '~/service/search.types'
 
 const query = ref('')
 const hotKeys = ref<HotKey[]>([])
@@ -42,6 +42,9 @@ onMounted(async() => {
         </div>
       </div>
     </scroll>
+    <div v-show="query" class="search-result">
+      <suggest :query="query" />
+    </div>
   </div>
 </template>
 

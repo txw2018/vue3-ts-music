@@ -1,5 +1,5 @@
 import { get } from './base'
-import type { AlbumParams, Recommend } from './recommend.type'
+import type { AlbumParams, Recommend } from './recommend.types'
 import type { SongResult } from './singer.types'
 
 export function getRecommend() {

@@ -1,12 +1,12 @@
 import { get } from './base'
-import type { HotKeyResult } from './search.type'
+import type { HotKeyResult, SearchResult } from './search.types'
 
 export function getHotKeys() {
   return get<HotKeyResult>('/api/getHotKeys')
 }
 
-export function search(query, page, showSinger) {
-  return get('/api/search', {
+export function search(query: string, page: number, showSinger: boolean) {
+  return get<SearchResult>('/api/search', {
     query,
     page,
     showSinger,
