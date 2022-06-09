@@ -1,7 +1,7 @@
 import { acceptHMRUpdate, defineStore } from 'pinia'
 import { PLAY_MODE } from '~/asstes/js/constant'
 import { shuffle } from '~/asstes/js/util'
-import { favoriteStorage } from '~/composables/storage'
+import { favoriteStorage, searchHistoryStorage } from '~/composables/storage'
 import type { Song } from '~/service/singer.types'
 
 export const useMainStore = defineStore('main', () => {
@@ -12,8 +12,9 @@ export const useMainStore = defineStore('main', () => {
   const playMode = ref<PLAY_MODE>(PLAY_MODE.sequence)// 播放状态
   const currentIndex = ref<number>(0) // 当前播放歌曲索引
   const fullScreen = ref<boolean>(false)// 播放模式 全局 or 收缩
-  const favoriteList = ref<Song[]>(favoriteStorage.value || []) // 收藏列表
+  const favoriteList = ref<Song[]>(favoriteStorage.value) // 收藏列表
   const playHistory = ref<Song[]>([])// 播放历史列表
+  const searchHistory = ref<string[]>(searchHistoryStorage.value)
 
   // getters
   const currentSong = computed(() => playlist.value[currentIndex.value] || {})
@@ -33,6 +34,9 @@ export const useMainStore = defineStore('main', () => {
         return
       }
     }
+  }
+  const setSearchHistory = (searches: string[]) => {
+    searchHistory.value = searches
   }
 
   const findIndex = (list: Song[], song: Song) => {
@@ -101,7 +105,29 @@ export const useMainStore = defineStore('main', () => {
     setPlaylist([])
     setCurrentIndex(0)
     setPlayingState(false)
+  }
 
+  const addSong = (song: Song) => {
+    const playlistVal = playlist.value.slice()
+    const sequenceListVal = sequenceList.value.slice()
+    let currentIndexVal = currentIndex.value
+    const playIndex = findIndex(playlistVal, song)
+    if (playIndex > -1) {
+      currentIndexVal = playIndex
+    }
+    else {
+      playlistVal.push(song)
+      currentIndexVal = playlistVal.length - 1
+    }
+    const sequenceIndex = findIndex(sequenceListVal, song)
+    if (sequenceIndex === -1)
+      sequenceListVal.push(song)
+
+    setSequenceList(sequenceListVal)
+    setPlaylist(playlistVal)
+    setCurrentIndex(currentIndexVal)
+    setPlayingState(true)
+    setFullScreen(true)
   }
 
   return {
@@ -114,6 +140,7 @@ export const useMainStore = defineStore('main', () => {
     fullScreen,
     favoriteList,
     playHistory,
+    searchHistory,
     // getter
     currentSong,
     // mutation
@@ -125,12 +152,14 @@ export const useMainStore = defineStore('main', () => {
     setFullScreen,
     setFavoriteList,
     addSongLyric,
+    setSearchHistory,
     // action
     selectPlay,
     randomPlay,
     changeMode,
     removeSong,
-    clearSongList
+    clearSongList,
+    addSong,
 
   }
 })

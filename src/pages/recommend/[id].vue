@@ -2,7 +2,7 @@
 import { albumStorage } from '~/composables/storage'
 import useDetailComponent from '~/composables/useDetailComponent'
 import { getAlbum } from '~/service/recommend'
-import type { Album } from '~/service/recommend.type'
+import type { Album } from '~/service/recommend.types'
 const props = defineProps<{
   data: Album
   id: string

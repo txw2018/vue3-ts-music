@@ -25,6 +25,15 @@ export default defineConfig({
 
     // https://github.com/hannoeru/vite-plugin-pages
     Pages({
+      onRoutesGenerated(routes) {
+        return [
+          ...routes,
+          {
+            path: '/',
+            redirect: '/recommend',
+          },
+        ]
+      },
     }),
 
     // https://github.com/antfu/unplugin-auto-import

@@ -1,6 +1,6 @@
 <script setup lang='ts'>
 import { getRecommend } from '~/service/recommend'
-import type { Album, Recommend, Slider } from '~/service/recommend.type'
+import type { Album, Recommend, Slider } from '~/service/recommend.types'
 import Scroll from '~/components/wrap-scroll/wrap-scroll.vue'
 import { albumStorage } from '~/composables/storage'
 const router = useRouter()

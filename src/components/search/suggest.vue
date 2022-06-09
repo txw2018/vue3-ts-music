@@ -1,4 +1,5 @@
 <script setup lang='ts'>
+import usePullUpLoad from './use-pull-up-load'
 import { search } from '~/service/search'
 import type { Singer, Song } from '~/service/singer.types'
 import { processSongs } from '~/service/song'
@@ -10,6 +11,10 @@ const props = defineProps({
     default: true,
   },
 })
+const emit = defineEmits<{
+  (e: 'select-song', val: Song): void
+  (e: 'select-singer', val: Singer): void
+}>()
 const singer = ref<Singer>()
 const songs = ref<Song[]>([])
 const hasMore = ref(true)
@@ -24,15 +29,25 @@ const loading = computed(() => {
 const noResult = computed(() => {
   return !singer.value && !songs.value.length && !hasMore.value
 })
-const pullUpLoading = () => {}
+const preventPullUpLoad = computed(() => {
+  return loading.value || manualLoading.value
+})
+const { isPullUpLoad, rootRef, scroll } = usePullUpLoad(searchMore, preventPullUpLoad)
 
 const selectSinger = (singer: Singer) => {
-
+  emit('select-singer', singer)
 }
 const selectSong = (song: Song) => {
-
+  emit('select-song', song)
 }
-const searchFirst = async() => {
+async function makeItScrollable() {
+  if (scroll.value!.maxScrollY >= -1) {
+    manualLoading.value = true
+    await searchMore()
+    manualLoading.value = false
+  }
+}
+async function searchFirst() {
   if (!props.query)
     return
 
@@ -44,7 +59,25 @@ const searchFirst = async() => {
   songs.value = await processSongs(result!.songs)
   singer.value = result!.singer
   hasMore.value = result!.hasMore
+  await nextTick()
+  await makeItScrollable()
 }
+
+async function searchMore() {
+  if (!hasMore.value || !props.query)
+    return
+
+  page.value++
+  const result = await search(props.query, page.value, props.showSinger)
+  songs.value = songs.value.concat(await processSongs(result!.songs))
+  hasMore.value = result!.hasMore
+  await nextTick()
+  await makeItScrollable()
+}
+
+const pullUpLoading = computed(() => {
+  return isPullUpLoad.value && hasMore.value
+})
 watch(() => props.query, async(newQuery) => {
   if (!newQuery)
     return
@@ -66,8 +99,8 @@ watch(() => props.query, async(newQuery) => {
         flex items-center pb-20px
         @click="selectSinger(singer!)"
       >
-        <div class="flex-[0_0_30px] w-30px">
-          <i class="icon-mine" />
+        <div class="flex-[0_0_30px] w-30px text-light-d">
+          <div class="i-carbon:user" />
         </div>
         <div flex-1 text="sm light-d" overflow-hidden>
           <p no-wrap>
@@ -81,8 +114,8 @@ watch(() => props.query, async(newQuery) => {
         flex items-center pb-20px
         @click="selectSong(song)"
       >
-        <div class="flex-[0_0_30px] w-30px">
-          <i class="icon-music" />
+        <div class="flex-[0_0_30px] w-30px text-light-d">
+          <div class="i-carbon:music" />
         </div>
         <div flex-1 text="sm light-d" overflow-hidden>
           <p no-wrap>
