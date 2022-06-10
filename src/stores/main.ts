@@ -1,7 +1,7 @@
 import { acceptHMRUpdate, defineStore } from 'pinia'
 import { PLAY_MODE } from '~/asstes/js/constant'
 import { shuffle } from '~/asstes/js/util'
-import { favoriteStorage, searchHistoryStorage } from '~/composables/storage'
+import { searchHistoryStorage } from '~/composables/storage'
 import type { Song } from '~/service/singer.types'
 
 export const useMainStore = defineStore('main', () => {
@@ -12,9 +12,9 @@ export const useMainStore = defineStore('main', () => {
   const playMode = ref<PLAY_MODE>(PLAY_MODE.sequence)// 播放状态
   const currentIndex = ref<number>(0) // 当前播放歌曲索引
   const fullScreen = ref<boolean>(false)// 播放模式 全局 or 收缩
-  const favoriteList = ref<Song[]>(favoriteStorage.value) // 收藏列表
-  const playHistory = ref<Song[]>([])// 播放历史列表
+  const favoriteList = ref<Song[]>([]) // 收藏列表
   const searchHistory = ref<string[]>(searchHistoryStorage.value)
+  const playHistory = ref<Song[]>([]) // 播放历史列表
 
   // getters
   const currentSong = computed(() => playlist.value[currentIndex.value] || {})
@@ -37,6 +37,9 @@ export const useMainStore = defineStore('main', () => {
   }
   const setSearchHistory = (searches: string[]) => {
     searchHistory.value = searches
+  }
+  const setPlayHistory = (songs: Song[]) => {
+    playHistory.value = songs
   }
 
   const findIndex = (list: Song[], song: Song) => {
@@ -153,6 +156,7 @@ export const useMainStore = defineStore('main', () => {
     setFavoriteList,
     addSongLyric,
     setSearchHistory,
+    setPlayHistory,
     // action
     selectPlay,
     randomPlay,

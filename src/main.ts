@@ -13,6 +13,7 @@ import './styles/main.css'
 import 'uno.css'
 
 import.meta.env.DEV && new VConsole()
+
 const app = createApp(App)
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),

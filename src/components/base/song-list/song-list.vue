@@ -1,5 +1,6 @@
 <script setup lang='ts'>
 import type { PropType } from 'vue'
+import type { SelectEmitType } from './song-list'
 import type { Song } from '~/service/singer.types'
 
 defineProps({
@@ -10,7 +11,7 @@ defineProps({
   rank: Boolean,
 })
 const emit = defineEmits<{
-  (e: 'select', val: { song: Song; index: number }): void
+  (e: 'select', val: SelectEmitType): void
 }>()
 
 const selectItem = (song: Song, index: number) => {

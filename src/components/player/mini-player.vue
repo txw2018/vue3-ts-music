@@ -55,8 +55,9 @@ const showPlaylist = () => {
       </div>
       <div
         ref="sliderWrapperRef"
-        flex="~ col justify-center flex-1"
-        lh-20px overflow-hidden
+
+        flex="~ col justify-center "
+        lh-20px overflow-hidden flex-1
       >
         <div relative overflow-hidden whitespace-nowrap>
           <div

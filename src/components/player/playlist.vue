@@ -2,6 +2,7 @@
 import type { ComponentPublicInstance } from 'vue'
 import type scroll from '../base/scroll/scroll.vue'
 import { Dialog } from '../base/dialog'
+import type addSong from '../add-song/add-song.vue'
 import useMode from './use-mode'
 import useFavorite from './use-favorite'
 import { useMainStore } from '~/stores/main'
@@ -9,6 +10,7 @@ import type { Song } from '~/service/singer.types'
 const mainStore = useMainStore()
 const visible = ref(false)
 const removing = ref(false)
+const addSongRef = ref<InstanceType<typeof addSong>>()
 const scrollRef = ref<InstanceType<typeof scroll>>()
 const listRef = ref<ComponentPublicInstance<HTMLUListElement>>()
 // const addSongRef = ref(null)
@@ -35,7 +37,7 @@ const scrollToCurrent = () => {
   scrollRef.value?.scroll?.scrollToElement(target, 300, 0, 0)
 }
 const refreshScroll = () => {
-
+  scrollRef.value!.scroll!.refresh()
 }
 const show = async() => {
   visible.value = true
@@ -67,7 +69,7 @@ const removeSong = (song: Song) => {
   mainStore.removeSong(song)
 }
 const showAddSong = () => {
-
+  addSongRef.value?.show()
 }
 
 watch(currentSong, async(newSong) => {
@@ -157,13 +159,7 @@ defineExpose({
             <span>关闭</span>
           </div>
         </div>
-        <!-- <ConfirmCom
-          v-model:show="isShow"
-          text="是否清空播放列表？"
-          confirm-btn-text="清空"
-          @confirm="confirmClear"
-        /> -->
-        <!-- <add-song ref="addSongRef" /> -->
+        <add-song ref="addSongRef" />
       </div>
     </transition>
   </teleport>

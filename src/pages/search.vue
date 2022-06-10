@@ -1,5 +1,6 @@
 <script setup lang='ts'>
 import Dialog from '~/components/base/dialog'
+import type scroll from '~/components/base/scroll/scroll.vue'
 import useSearchHistory from '~/components/search/use-search-history'
 import { singerStorage } from '~/composables/storage'
 import { getHotKeys } from '~/service/search'
@@ -12,6 +13,7 @@ const router = useRouter()
 const query = ref('')
 const hotKeys = ref<HotKey[]>([])
 const selectedSinger = ref<Singer>()
+const scrollRef = ref<InstanceType<typeof scroll>>()
 
 const searchHistory = computed(() => mainStore.searchHistory)
 
@@ -43,6 +45,15 @@ const showConfirm = () => {
 
   })
 }
+const refreshScroll = () => {
+  scrollRef.value!.scroll?.refresh()
+}
+watch(query, async(newQuery) => {
+  if (!newQuery) {
+    await nextTick
+    refreshScroll()
+  }
+})
 
 onMounted(async() => {
   const result = await getHotKeys()

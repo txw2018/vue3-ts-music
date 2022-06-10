@@ -4,10 +4,12 @@
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    AddSong: typeof import('./src/components/add-song/add-song.vue')['default']
     Dialog: typeof import('./src/components/base/dialog/dialog.vue')['default']
     Header: typeof import('./src/components/header/header.vue')['default']
     IndexList: typeof import('./src/components/index-list/index-list.vue')['default']
     Loading: typeof import('./src/components/base/loading/loading.vue')['default']
+    Message: typeof import('./src/components/base/message/message.vue')['default']
     MiniPlayer: typeof import('./src/components/player/mini-player.vue')['default']
     MusicList: typeof import('./src/components/music-list/music-list.vue')['default']
     NoResult: typeof import('./src/components/base/no-result/no-result.vue')['default']
@@ -23,6 +25,7 @@ declare module '@vue/runtime-core' {
     Slider: typeof import('./src/components/base/slider/slider.vue')['default']
     SongList: typeof import('./src/components/base/song-list/song-list.vue')['default']
     Suggest: typeof import('./src/components/search/suggest.vue')['default']
+    Switches: typeof import('./src/components/base/switches/switches.vue')['default']
     Tab: typeof import('./src/components/tab/tab.vue')['default']
     WrapScroll: typeof import('./src/components/wrap-scroll/wrap-scroll.vue')['default']
   }

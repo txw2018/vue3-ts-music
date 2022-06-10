@@ -7,6 +7,7 @@ export const FAVORITE_KEY = '__favorite__'
 export const ALBUM_KEY = '__album__'
 export const TOP_KEY = '__top__'
 export const SEARCH_KEY = '__search__'
+export const PLAY_KEY = '__play__'
 
 export const singerStorage = useSessionStorage<Singer>(SINGER_KEY, {} as Singer)
 
@@ -17,3 +18,5 @@ export const albumStorage = useStorage<Album>(ALBUM_KEY, {} as Album)
 export const topListStorage = useStorage<TopList>(TOP_KEY, {} as TopList)
 
 export const searchHistoryStorage = useStorage<string[]>(SEARCH_KEY, [])
+
+export const playHistoryStorage = useStorage<Song[]>(PLAY_KEY, [] as Song[])
