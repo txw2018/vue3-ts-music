@@ -1,5 +1,5 @@
 
-本项目学习慕课网黄轶老师vue3音乐课重写的
+本项目学习慕课网黄轶老师vue3音乐课用ts重写的
 
 使用了antfu大佬的vue3起手式模板[vitesse-lite](https://github.com/antfu/vitesse-lite)
 
