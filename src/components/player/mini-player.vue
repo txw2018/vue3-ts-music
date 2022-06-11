@@ -35,7 +35,7 @@ const showPlaylist = () => {
   <transition name="mini">
     <div
       v-show="!fullScreen"
-      flex items-center fixed left-0 bottom-0 z-180 w-full h-60px bg-dark-highlight
+      flex items-center fixed left-0 bottom-0 z-180 w-full h-60px dark:bg-dark-highlight bg-light-highlight
       @click="showNormalPlayer"
     >
       <div class=" box-content flex-[0_0_40px] w-40px h-40px py-0px pr-10px pl-20px">
@@ -67,10 +67,10 @@ const showPlaylist = () => {
             translate-x-0 translate-y-0 translate-z-0
             backface-hidden
           >
-            <h2 mb-2px no-wrap text="size-sm light-base">
+            <h2 mb-2px no-wrap dark:text-dark-base text-light-base text-sm >
               {{ song.name }}
             </h2>
-            <p no-wrap text="text-sm light-d">
+            <p no-wrap text-sm dark:text-dark-d text-light-d >
               {{ song.singer }}
             </p>
           </div>

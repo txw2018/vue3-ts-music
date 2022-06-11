@@ -208,10 +208,10 @@ watch(fullScreen, async(newFullScreen) => {
             >
               <i i-carbon:chevron-down block p-9px text-3xl text-theme />
             </div>
-            <h1 class="w-7/10" my-0 mx-auto lh-40px text-center text-ellipsis overflow-hidden whitespace-nowrap text-lg text-light-base>
+            <h1 class="w-7/10" my-0 mx-auto lh-40px text-center text-ellipsis overflow-hidden whitespace-nowrap text-lg dark:text-dark-base text-light-base>
               {{ currentSong.name }}
             </h1>
-            <h2 lh-20px text-center text-sm text-light-base>
+            <h2 lh-20px text-center text-sm dark:text-dark-base text-light-base>
               {{ currentSong.singer }}
             </h2>
           </div>
@@ -242,7 +242,7 @@ watch(fullScreen, async(newFullScreen) => {
                 class="w-4/5"
                 mt-30px mb-0px mx-auto overflow-hidden text-center
               >
-                <div h-20px lh-20px text="sm light-l">
+                <div h-20px lh-20px dark:text-dark-l text-light-l text="sm">
                   {{ playingLyric }}
                 </div>
               </div>
@@ -261,7 +261,7 @@ watch(fullScreen, async(newFullScreen) => {
                     v-for="(line,index) in currentLyric.lines"
                     :key="line.time"
                     lh-32px text-sm
-                    :class="[currentLineNum === index ? 'text-light-base':'text-light-l']"
+                    :class="[currentLineNum === index ? 'dark:text-dark-base text-light-base':'dark:text-dark-l text-light-l']"
                   >
                     {{ line.txt }}
                   </p>
@@ -274,16 +274,16 @@ watch(fullScreen, async(newFullScreen) => {
               <span
                 inline-block align-middle my-0 mx-4px h-8px
                 class="rounded-1/2"
-                :class="[currentShow ==='cd'? 'w-20px rounded-5px bg-light-ll':' w-8px bg-light-l']"
+                :class="[currentShow ==='cd'? 'w-20px rounded-5px dark:bg-dark-ll bg-light-ll':' w-8px dark:bg-light-l bg-light-l']"
               />
               <span
                 inline-block align-middle my-0 mx-4px h-8px
                 class="rounded-1/2"
-                :class="[currentShow==='lyric'? 'w-20px rounded-5px bg-light-ll':' w-8px bg-light-l']"
+                :class="[currentShow==='lyric'? 'w-20px rounded-5px dark:bg-dark-ll bg-light-ll':' w-8px dark:bg-dark-l bg-light-l']"
               />
             </div>
             <div flex items-center my-0px mx-auto py-10px px-0 class="w-4/5">
-              <span inline-block dark:text-light-base text-dark-base text-xs lh-30px w-40px text-left class="flex-[0_0_40px]">
+              <span inline-block dark:text-dark-base text-light-base text-xs lh-30px w-40px text-left class="flex-[0_0_40px]">
                 {{ formatTime(currentTime) }}
               </span>
               <div flex-1>
@@ -294,7 +294,7 @@ watch(fullScreen, async(newFullScreen) => {
                   @progress-changed="onProgressChanged"
                 />
               </div>
-              <span inline-block dark:text-light-base text-dark-base text-xs lh-30px w-40px text-right class="flex-[0_0_40px]">
+              <span inline-block dark:text-dark-base text-light-base text-xs lh-30px w-40px text-right class="flex-[0_0_40px]">
                 {{ formatTime(currentSong.duration) }}</span>
             </div>
             <div flex items-center>

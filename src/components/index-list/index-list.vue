@@ -30,7 +30,7 @@ const onItemClick = (item: Singer) => {
         :key="group.title"
         pb-30px
       >
-        <h2 h-30px lh-30px pl-20px text-sm dark:text-light-l dark:bg-dark-highlight bg-light-highlight>
+        <h2 h-30px lh-30px pl-20px text-sm dark:text-dark-l dark:bg-dark-highlight bg-light-highlight>
           {{ group.title }}
         </h2>
         <ul>
@@ -45,7 +45,7 @@ const onItemClick = (item: Singer) => {
               class="rounded-1/2"
               w-50px h-50px inline-block
             >
-            <span ml-20px dark:text-light-l text-sm>{{ item.name }}</span>
+            <span ml-20px dark:text-dark-l text-sm>{{ item.name }}</span>
           </li>
         </ul>
       </li>
@@ -56,7 +56,7 @@ const onItemClick = (item: Singer) => {
       :style="fixedStyle"
     >
       <div
-        h-30px lh-30px pl-20px text-sm dark:text-light-l
+        h-30px lh-30px pl-20px text-sm dark:text-dark-l
         dark:bg-dark-highlight bg-light-highlight
       >
         {{ fixedTitle }}
@@ -64,7 +64,7 @@ const onItemClick = (item: Singer) => {
     </div>
     <div
       absolute right-4px w-20px py-20px rounded-10px text-center
-      bg-dark-d
+      dark:bg-dark-d bg-light-d
       class="top-1/2 -translate-y-1/2"
       @touchstart.stop.prevent="onShortcutTouchStart"
       @touchmove.stop.prevent="onShortcutTouchMove"

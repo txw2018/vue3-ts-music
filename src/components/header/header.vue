@@ -21,7 +21,7 @@ import { isDark, toggleDark } from '~/composables'
     <h1 inline-block align-top lh-44px text-22px text-theme text-xl>
       Chicken Musci
     </h1>
-    <router-link absolute top-10px right-0 to="/user">
+    <router-link absolute top-10px right-5px to="/user">
       <div text="xl theme" class="i-carbon:user" />
     </router-link>
   </div>

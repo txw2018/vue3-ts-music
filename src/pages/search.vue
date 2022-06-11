@@ -73,14 +73,15 @@ onMounted(async() => {
     >
       <div>
         <div mt-0 mb-20px mx-20px>
-          <h1 mb-20px text="sm light-l">
+          <h1 mb-20px text-sm dark:text-dark-l text-light-l >
             热门搜索
           </h1>
           <ul>
             <li
               v-for="item in hotKeys"
               :key="item.id"
-              inline-block py-5px px-10px mt-0 mr-20px mb-10px ml-0 rounded-6px bg-dark-highlight text="sm light-d"
+              inline-block py-5px px-10px mt-0 mr-20px mb-10px ml-0 rounded-6px 
+              dark:bg-dark-highlight bg-light-highlight text-sm dark:text-dark-d text-light-d
               @click="addQuery(item.key)"
             >
               <span>{{ item.key }}</span>
@@ -91,7 +92,7 @@ onMounted(async() => {
           <h1 flex="~ items-center" h-40px text="sm light-l">
             <span flex-1>搜索历史</span>
             <span @click="showConfirm">
-              <div text="sm light-d" class="i-carbon:trash-can" />
+              <div text="sm dark-d" class="i-carbon:trash-can" />
             </span>
           </h1>
           <search-list

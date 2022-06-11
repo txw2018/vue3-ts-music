@@ -10,7 +10,7 @@ const props = defineProps<{
 const { songs, title, pic, loading } = useDetailComponent(props, albumStorage, getAlbum)
 </script>
 <template>
-  <div fixed z-10 top-0 bottom-0 left-0 right-0 bg-dark>
+  <div fixed z-10 top-0 bottom-0 left-0 right-0 dark:bg-dark bg-light>
     <music-list
       :songs="songs"
       :title="title"

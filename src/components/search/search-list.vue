@@ -30,7 +30,7 @@ const deleteItem = (item: string) => {
         flex="~ items-center" h-40px overflow-hidden
         @click="selectItem(item)"
       >
-        <span flex-1 text-light-l>{{ item }}</span>
+        <span flex-1 dark:text-dark-l text-light-l>{{ item }}</span>
         <span
           v-if="showDelete"
           @click.stop="deleteItem(item)"

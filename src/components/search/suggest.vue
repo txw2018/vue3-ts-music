@@ -19,7 +19,9 @@ const singer = ref<Singer>()
 const songs = ref<Song[]>([])
 const hasMore = ref(true)
 const page = ref(1)
+// @ts-ignore
 const loadingText = ref('')
+// @ts-ignore
 const noResultText = ref('抱歉，暂无搜索结果')
 const manualLoading = ref(false)
 const loading = computed(() => {
@@ -114,10 +116,10 @@ watch(() => props.query, async(newQuery) => {
         flex items-center pb-20px
         @click="selectSong(song)"
       >
-        <div class="flex-[0_0_30px] w-30px text-light-d">
+        <div class="flex-[0_0_30px] w-30px dark:text-dark-d text-light-d">
           <div class="i-carbon:music" />
         </div>
-        <div flex-1 text="sm light-d" overflow-hidden>
+        <div flex-1 text-sm dark:text-dark-d text-light-d  overflow-hidden>
           <p no-wrap>
             {{ song.singer }}-{{ song.name }}
           </p>

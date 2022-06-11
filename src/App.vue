@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { on } from 'events'
 import { useMainStore } from './stores/main'
 import { favoriteStorage, playHistoryStorage } from './composables/storage'
 import { processSongs } from './service/song'
+
 
 const mainStore = useMainStore()
 
@@ -34,7 +34,23 @@ onMounted(() => {
   <main font-sans>
     <Header />
     <Tab />
-    <router-view :style="viewStyle" />
+    <router-view
+      :style="viewStyle"
+      v-slot="{ Component,route }"
+    >
+      <template v-if="route.name ==='user'">
+        <transition  appear name="slide">
+          <keep-alive>
+            <component :is="Component"/>
+          </keep-alive>
+        </transition>
+      </template>
+      <template  v-else>
+        <keep-alive>
+          <component :is="Component"/>
+        </keep-alive>
+      </template>
+    </router-view>
     <player />
   </main>
 </template>

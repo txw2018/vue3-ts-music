@@ -43,7 +43,7 @@ onMounted(async() => {
               height="100"
             >
           </div>
-          <ul flex-1 flex="~ col " justify-center py-0 px-20px h-100px overflow-hidden bg-dark-highlight text="light-d xs">
+          <ul flex-1 flex="~ col " justify-center py-0 px-20px h-100px overflow-hidden dark:bg-dark-highlight bg-light-highlight  text-xs dark:text-dark-d  text-light-d>
             <li
               v-for="(song, index) in item.songList"
               :key="song.id"

@@ -34,15 +34,15 @@ defineExpose({
 <template>
   <teleport to="body">
     <transition name="confirm-fade">
-      <div v-show="show" fixed left-0 right-0 top-0 bottom-0 z-998 bg-dark-d>
+      <div v-show="show" fixed left-0 right-0 top-0 bottom-0 z-998 dark:bg-dark-d bg-light-d>
         <div absolute z-999 class="top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-          <div class="confirm-content" w-270px rounded-13px bg-dark-highlight>
-            <p py-19px px-15px lh-22px text-center text="sm light-l">
+          <div class="confirm-content" w-270px rounded-13px dark:bg-dark-highlight bg-light-highlight>
+            <p py-19px px-15px lh-22px text-center text="sm" dark:text-dark-l text-light-l>
               {{ message }}
             </p>
             <div flex="~ items-center" text-center text-sm>
               <div
-                flex-1 lh-22px py-10px px-0 b-r-1px b-t-1px border-dark-d text-light
+                flex-1 lh-22px py-10px px-0 b-r-1px b-t-1px dark:border-dark-d  border-light-d  dark:text-light text-dark
 
                 @click="confirm"
               >
@@ -50,7 +50,7 @@ defineExpose({
               </div>
               <div
                 v-show="showCancelButton"
-                flex-1 lh-22px py-10px px-0 b-t-1px border-dark-d text-light-l
+                flex-1 lh-22px py-10px px-0 b-t-1px dark:border-dark-d dark:text-dark-l border-light-d text-light-l
                 @click="cancel"
               >
                 {{ cancelBtnText }}

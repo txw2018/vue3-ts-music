@@ -65,10 +65,10 @@ defineExpose({
     <transition name="slide">
       <div
         v-show="visible"
-        fixed top-0 bottom-0 w-full z-300 bg-dark
+        fixed top-0 bottom-0 w-full z-300 dark:bg-dark bg-light
       >
         <div relative h-44px text-center>
-          <h1 lh-44px text="xl light">
+          <h1 lh-44px text="xl" dark:text-dark text-light>
             添加歌曲列表
           </h1>
           <div absolute top-0 right-8px @click="hide">

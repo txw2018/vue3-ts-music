@@ -90,12 +90,12 @@ defineExpose({
     <transition name="list-fade">
       <div
         v-show="visible && playlist.length"
-        fixed left-0 right-0 top-0 bottom-0 z-200 bg-dark-d
+        fixed left-0 right-0 top-0 bottom-0 z-200 dark:bg-dark-d bg-light-d
         @click="hide"
       >
         <div
           class="list-wrapper"
-          fixed left-0 bottom-0 z-210 w-full bg-dark-highlight
+          fixed left-0 bottom-0 z-210 w-full dark:bg-dark-highlight bg-light-highlight
           @click.stop
         >
           <div relative pt-20px pr-30px pb-10px pl-20px>
@@ -105,9 +105,9 @@ defineExpose({
                 :class="modeIcon"
                 @click="changeMode"
               />
-              <span flex-1 text="sm light-l">{{ modeText }}</span>
+              <span flex-1 text="sm" dark:text-dark-l text-light-l >{{ modeText }}</span>
               <span @click="showConfirm">
-                <div class="i-carbon:trash-can " text="sm light-d" />
+                <div class="i-carbon:trash-can " text="sm"  dark:text-dark-d text-light-d/>
               </span>
             </h1>
           </div>
@@ -131,7 +131,7 @@ defineExpose({
                   class="flex-[0_0_20px] w-20px" text="sm theme-d"
                   :class="getCurrentIcon(song)"
                 />
-                <span flex-1 no-wrap text="sm light-d">{{ song.name }}</span>
+                <span flex-1 no-wrap text="sm" dark:text-dark-d text-light-d>{{ song.name }}</span>
                 <span mr-15px text="sm theme" @click.stop="toggleFavorite(song)">
                   <div :class="getFavoriteIcon(song)" />
                 </span>
@@ -148,14 +148,14 @@ defineExpose({
           <div w-140px mt-20px mb-30px mx-auto>
             <div
               flex="~ items-center"
-              py-8px px-16px b-1px border-light-l rounded-100px text-light-l
+              py-8px px-16px b-1px border-light-l rounded-100px dark:text-dark-l text-light-l
               @click="showAddSong"
             >
               <i class="icon-add" mr-5px text-xs />
               <span text-sm>添加歌曲到队列</span>
             </div>
           </div>
-          <div text-center lh-50px bg-dark text="xm light-l" @click="hide">
+          <div text-center lh-50px dark:bg-dark bg-light text="xm" dark:text-dark-l text-light-l @click="hide">
             <span>关闭</span>
           </div>
         </div>

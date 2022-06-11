@@ -28,18 +28,18 @@ const switchItem = (index: number) => {
 <template>
   <ul
     flex="~ items-center"
-    relative w-240px my-0 mx-auto b-1px border-dark-highlight rounded-5px
+    relative w-240px my-0 mx-auto b-1px dark:border-dark-highlight border-light-highlight rounded-5px
   >
     <li
       v-for="(item, index) in items"
       :key="item"
       relative z-10 flex-1 h-30px lh-30px text-center
-      text="sm light-d"
-      :class="[modelValue === index ? 'text-light': '']"
+      text="sm" dark:text-dark-d text-light-d
+      :class="[modelValue === index ? 'dark:text-dark text-light': '']"
       @click="switchItem(index)"
     >
       <span>{{ item }}</span>
     </li>
-    <div absolute left-0 top-0 w-120px h-30px transition transform delay-300 rounded-5px bg-dark-highlight :style="activeStyle" />
+    <div absolute left-0 top-0 w-120px h-30px transition transform delay-300 rounded-5px dark:bg-dark-highlight  bg-light-highlight :style="activeStyle" />
   </ul>
 </template>

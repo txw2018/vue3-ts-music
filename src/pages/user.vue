@@ -13,7 +13,7 @@ const playHistory = computed(() => mainStore.playHistory)
 const noResult = computed(() => {
   return currentIndex.value === 0 ? !favoriteList.value.length : !playHistory.value.length
 })
-
+// @ts-ignore
 const noResultText = computed(() => {
   return currentIndex.value === 0 ? '暂无收藏歌曲' : '你还没有听过歌曲'
 })
@@ -31,10 +31,15 @@ const random = () => {
   mainStore.randomPlay(currentList.value)
 }
 </script>
+<script lang="ts">
+export default{
+  name:'user'
+}
+</script>
 <template>
   <div
     v-no-result:[noResultText]="noResult"
-    fixed top-0 bottom-0 z-100 w-full bg-dark
+    fixed top-0 bottom-0 z-100 w-full dark:bg-dark bg-light
   >
     <div absolute top-0 left-6px top-15px z-50 @click="back">
       <div w-30px text-theme i-carbon:arrow-left />
@@ -47,7 +52,7 @@ const random = () => {
     </div>
     <div
       v-if="currentList.length"
-      box-border w-135px py-7px px-0 my-0 mx-auto text-center b-1px border-dark-l text="light-l size-0" rounded-100px
+      box-border w-135px py-7px px-0 my-0 mx-auto text-center b-1px dark:border-dark-l border-light-l dark:text-dark-l text-light-l text="size-0" rounded-100px
       @click="random"
     >
       <i vertical-middle mr-6px text-sm class="icon-play" />
@@ -74,5 +79,3 @@ const random = () => {
   </div>
 </template>
 
-<style scoped lang='scss'>
-</style>

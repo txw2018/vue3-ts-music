@@ -52,10 +52,10 @@ onMounted(async() => {
                 <img v-lazy="item.pic" width="60" height="60" alt="">
               </div>
               <div text-left flex flex-col justify-center flex-1 lh-20px overflow-hidden text-sm>
-                <h2 mb-10px text-dark dark:text-light>
+                <h2 mb-10px text-light-base dark:text-dark-base>
                   {{ item.username }}
                 </h2>
-                <p text-dark-d dark:text-light-d>
+                <p text-light-d dark:text-dark-d>
                   {{ item.title }}
                 </p>
               </div>

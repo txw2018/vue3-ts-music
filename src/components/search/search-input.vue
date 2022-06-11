@@ -29,11 +29,11 @@ watchDebounced(
 
 </script>
 <template>
-  <div flex items-center w-full py-0 px-6px h-32px bg-dark-highlight rounded-6px>
+  <div flex items-center w-full py-0 px-6px h-32px bg-light-highlight dark:bg-dark-highlight rounded-6px>
     <div class="i-carbon:search" />
     <input
       v-model="query"
-      flex-1 my-0 mx-5px lh-18px bg-dark-highlight text="base sm" outline-0
+      flex-1 my-0 mx-5px lh-18px text-sm  dark:bg-dark-highlight bg-light-highlight dark:text-dark-base text-light-base  outline-0
       :placeholder="placeholder"
     >
     <div

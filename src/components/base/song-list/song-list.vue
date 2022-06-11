@@ -53,12 +53,12 @@ const getDesc = (song: Song) => {
       </div>
       <div flex-1 lh-20px overflow-hidden>
         <h2
-          text-dark dark:text-light text-ellipsis overflow-hidden whitespace-nowrap text-sm
+          text-light-base dark:text-dark-base text-ellipsis overflow-hidden whitespace-nowrap text-sm
         >
           {{ song.name }}
         </h2>
         <p
-          text-ellipsis overflow-hidden whitespace-nowrap mt-4px text-14px text-dark-d dark:text-light-d
+          text-ellipsis overflow-hidden whitespace-nowrap mt-4px text-14px text-light-d dark:text-dark-d
         >
           {{ getDesc(song) }}
         </p>
