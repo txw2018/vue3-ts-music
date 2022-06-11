@@ -1,6 +1,6 @@
 <script setup lang='ts'>
 import useSlider from './use-slider'
-import type { Slider } from '~/service/recommend.type'
+import type { Slider } from '~/service/recommend.types'
 defineProps< {
   sliders: Slider[]
 }>()
